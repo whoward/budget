@@ -1,0 +1,10 @@
+%tr
+  %td
+  %td
+  %td
+    %select.select2{name: "partitions[][category_id]"}
+      = options_from_collection_for_select root_category.descendants.sort_by(&:name), :id, :name, transaction.try(:category_id)
+  %td.amount
+    = text_field_tag "partitions[][cents]", cents_to_currency(transaction.try(:cents) || 0, unit: "", delimiter: ""), class: "text-right"
+  %td
+    %i.fa.fa-times-circle.js-remove{style: "cursor: pointer"}

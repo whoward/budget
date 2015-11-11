@@ -1,0 +1,39 @@
+AllCops:
+  RunRailsCops: true
+  Include:
+    - '**/Gemfile'
+    - '**/Rakefile'
+  Exclude:
+   - 'bin/*'
+   - 'db/seeds.rb'
+   - 'db/schema.rb'
+   - 'db/migrate/*'
+   - 'vendor/bundle/**/*'
+
+Metrics/AbcSize:
+  Max: 41 # TODO: try to get this down to 20
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 21 # TODO: try to get this down to 20
+
+Style/Documentation:
+  Enabled: false
+
+Style/MethodName:
+  Enabled: false
+
+# I like my boolean coercion
+Style/DoubleNegation:
+  Enabled: false
+
+# discourage the use of the threequals operator?? no way!
+Style/CaseEquality:
+  Enabled: false
+
+# it's hard to get this one and a sane directory structure compatible with
+# ActiveSupport's reloading mechanism to play together
+Style/ClassAndModuleChildren:
+  Enabled: false

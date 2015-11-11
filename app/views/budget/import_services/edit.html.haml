@@ -1,0 +1,7 @@
+- model_class = ImportService
+
+.page-header
+  %h1= t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize
+
+= bootstrap_form_for @import_service, as: :import_service, url: import_service_path(@import_service) do |f|
+  = render "form", action: "Update", f: f

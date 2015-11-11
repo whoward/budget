@@ -1,0 +1,51 @@
+// This is a manifest file that'll be compiled into application.js, which will include all the files
+// listed below.
+//
+// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
+// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
+//
+// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
+// compiled file.
+//
+// Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
+// about supported directives.
+//
+//= require jquery
+//= require jquery.turbolinks
+//= require jquery_ujs
+//= require turbolinks
+//= require twitter/bootstrap
+//= require select2
+//= require highcharts
+//= require papaparse
+//= require accounting
+//
+//= require bind
+//= require transferize
+//= require template
+//= require split_transaction
+//= require_tree ./plots
+//= require_self
+
+Turbolinks.enableProgressBar();
+
+window.routes = <%= Hash[Rails.application.routes.named_routes.routes.map {|k,v| [k, v.ast.to_s.gsub("(.:format)", "")] }].to_json %>
+
+bind(".select2", function(node) {
+  if(!Modernizr.touch) { node.select2() }
+});
+
+bind("#search", function(node) { node.affix(); return true; });
+
+$(document).on("change", "#transaction_search :input", function() {
+  $("#transaction_search").submit()
+});
+
+$(document).on("change", "#report-month", function() {
+  var route = $(this).data("route");
+  window.location = routes[route].replace(":year-:month", $(this).val());
+});
+
+$(document).on("change", "#transactions input[type=checkbox]", function() {
+  $(this).parents("tr").toggleClass("info", $(this).is(":checked"))
+});

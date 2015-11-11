@@ -1,0 +1,43 @@
+= page_header "Transactions"
+
+#search
+  = search_form_for query, class: "form-inline" do |f|
+    = f.date_field :date_gteq, placeholder: "from", class: "form-control"
+    = f.date_field :date_lteq, placeholder: "to", class: "form-control"
+    = select_tag "q[category_id_eq]", grouped_options_for_income_and_expenses(params.fetch(:q, {}).fetch(:category_id_eq, nil)), include_blank: true, class: "form-control"
+    = f.collection_select :account_id_eq, Account.all, :id, :name, {include_blank: true}, class: "form-control"
+
+  .pull-right
+    = link_to "Make Transfer", transferize_transaction_path(":from_id", ":to_id"), id: "transferize", class: "btn btn-danger"
+
+%table#transactions.table.table-striped
+  %thead
+    %tr
+      %td.span1
+      %td Date
+      %td.span1
+      %td Description
+      %td Amount
+      %td.hidden-sm.hidden-xs Category
+      %td.hidden-sm.hidden-xs Account
+
+  %tbody
+    - collection.each do |t|
+      %tr{id: "transaction-#{t.id}", data: {id: t.id}}
+        %td.span1= check_box_tag ""
+        %td.span2= t.date.to_s
+        %td
+          - if t.split_transaction_id
+            %i.fa.fa-sitemap
+          - elsif t.category == Category.transfer_to
+            %i.fa.fa-arrow-right
+          - elsif t.category == Category.transfer_from
+            %i.fa.fa-arrow-left
+
+        %td= link_to t.description, edit_transaction_path(t, return_to: request.url)
+        %td.span2.amount{class: t.is_a?(Expense) ? "negative" : "positive"}= number_to_currency(cents_to_dollars(t.cents), unit: "")
+        %td.hidden-sm.hidden-xs= t.category.name
+        %td.span2.hidden-sm.hidden-xs= t.account.name
+
+.row-fluid
+  .span12.text-center= paginate collection, theme: "twitter-bootstrap-3"

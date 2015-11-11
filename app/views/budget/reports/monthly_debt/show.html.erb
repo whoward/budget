@@ -1,0 +1,17 @@
+<div id="plot" style="text-align: center"></div>
+<script>
+  var margin = {top: 50, right: 50, bottom: 50, left: 75};
+
+  window.plot = new MoneyTimeBarPlot({
+    "parent": "#plot",
+    "url": "<%= monthly_debt_report_path(format: "csv") %>",
+    "dimensions": {
+      "margin": margin,
+      "width": 960 - margin.left - margin.right,
+      "height": 500 - margin.top - margin.bottom
+    },
+    "yAxis": {
+      "title": "Change in Debt"
+    }
+  }).fetch();
+</script>

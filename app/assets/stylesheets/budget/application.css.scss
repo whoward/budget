@@ -1,0 +1,81 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require bootstrap_and_overrides
+ *= require select2
+ *= require plot
+ *= require_self
+ */
+
+html.turbolinks-progress-bar::before {
+  background-color: red !important;
+  height: 5px !important;
+}
+
+.amount {
+  &.positive {
+    color: #74aa00;
+  }
+
+  &.negative {
+    color: #900;
+  }
+}
+
+td.amount {
+  position: relative !important;
+  text-align: right;
+  padding-left: 10px !important;
+
+  &:before {
+    content: "$";
+    color: #999;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    padding: 8px 0;
+  }
+}
+
+#search {
+
+  form {
+    display: inline;
+  }
+
+}
+
+@media(max-width:767px) {
+  #search.affix {
+    position: static;
+  }
+}
+
+@media(min-width:768px) {
+  #search.affix {
+    width: 100%;
+    background-color: #eaeaea;
+    top: 0;
+    left: 0;
+    padding: 10px 0 3px 0;
+    border-bottom: 1px solid #bebebe;
+    box-shadow: 1px 1px 3px #aaa;
+    z-index: 100;
+
+    form {
+      margin-left: 20px;
+    }
+
+    .pull-right {
+      margin-right: 20px;
+    }
+  }
+}

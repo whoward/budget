@@ -1,0 +1,14 @@
+= page_header "Review new account"
+
+%p.lead 
+  You have a newly imported account. Make changes below as you wish
+  then click the "Verify" button to import it.
+
+%p
+  There are <strong>#{account.transactions_count}</strong> transactions 
+  associated with this account worth a net value of <strong>#{number_to_currency cents_to_dollars account.transactions_value}</strong>
+
+= bootstrap_form_for account do |f|
+  = f.text_field :name
+  .form-actions
+    = f.submit "Verify", class: "btn btn-primary"
