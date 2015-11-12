@@ -1,8 +1,6 @@
 
 module Budget
   class ImportableAccountsController < BaseController
-    include ReviewConcern
-
     def show
       # TODO: check if the account is already imported and if so render a different page
       account # force load

@@ -1,7 +1,7 @@
 require 'rails_helper'
-require 'budget/reports/monthly_cashflow'
+require 'budget/report/monthly_cashflow'
 
-describe Budget::Reports::MonthlyCashflow do
+describe Budget::Report::MonthlyCashflow do
   subject { described_class.new }
 
   let!(:work) { create(:income_category, name: 'Work') }

@@ -1,9 +1,7 @@
 require 'budget/transaction_factory'
-require 'budget/concerns/review_concern'
 
 module Budget
   class ImportableTransactionsController < BaseController
-    include ReviewConcern
 
     def show
       use_duplicate_strategy = params[:duplicate] != 'no'
