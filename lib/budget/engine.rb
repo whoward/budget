@@ -8,6 +8,8 @@ require 'turbolinks'
 require 'kaminari'
 require 'bootstrap-kaminari-views'
 
+require 'ransack'
+
 %w(bootstrap select2 highcharts papaparse handlebars accountingjs).each do |asset|
   require "rails-assets-#{asset}"
 end

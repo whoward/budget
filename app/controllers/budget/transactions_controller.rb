@@ -1,5 +1,4 @@
 require 'budget/transferize_policy'
-require 'ransack'
 
 module Budget
   class TransactionsController < BaseController
