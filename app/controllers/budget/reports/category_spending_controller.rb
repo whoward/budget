@@ -1,7 +1,8 @@
+require 'budget/report/categorical_spending'
 
 module Budget
   module Reports
-    class CategorySpendingController < ApplicationController
+    class CategorySpendingController < BaseController
       def index
         @income_categories = Category.income.descendants.order(:name)
         @expense_categories = Category.expense.descendants.order(:name)
@@ -9,7 +10,7 @@ module Budget
 
       def show
         @category = Category.find(params[:category_id])
-        @report = CategoricalSpendingReport.new(@category)
+        @report = Report::CategoricalSpending.new(@category)
       end
     end
   end

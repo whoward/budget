@@ -22,5 +22,5 @@
   %strong Unbudgeted Spending:
   %span.amount= number_to_currency(cents_to_dollars(@report.total_unbudgeted_spending))
 
-= render "reports/monthly_budget/group", title: "My Budgets", entries: @report.budgeted
-= render "reports/monthly_budget/group", title: "Unbudgeted Expenses", entries: @report.unbudgeted
+= render "budget/reports/monthly_budget/group", title: "My Budgets", entries: @report.budgeted
+= render "budget/reports/monthly_budget/group", title: "Unbudgeted Expenses", entries: @report.unbudgeted

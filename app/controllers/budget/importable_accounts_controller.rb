@@ -1,6 +1,6 @@
 
 module Budget
-  class ImportableAccountsController < ApplicationController
+  class ImportableAccountsController < BaseController
     include ReviewConcern
 
     def show

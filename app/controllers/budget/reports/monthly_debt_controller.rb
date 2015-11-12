@@ -1,9 +1,10 @@
 require 'budget/month_enumerator'
+require 'budget/report/monthly_debt'
 require 'csv'
 
 module Budget
   module Reports
-    class MonthlyDebtController < ApplicationController
+    class MonthlyDebtController < BaseController
       def show
         respond_to do |format|
           format.html
@@ -24,7 +25,7 @@ module Budget
         MonthEnumerator.since_first_transaction.map do |year, month|
           time = Time.zone.local(year, month, 1, 0, 0, 0)
 
-          net_diff = MonthlyDebtReport.new(time).net_income / 100.0
+          net_diff = Report::MonthlyDebt.new(time).net_income / 100.0
 
           [year, month, 1, net_diff]
         end

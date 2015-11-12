@@ -24,4 +24,15 @@ Gem::Specification.new do |s|
   s.add_dependency 'awesome_nested_set'
   s.add_dependency 'ransack'
   s.add_dependency 'bootstrap-kaminari-views'
+  s.add_dependency 'sass-rails'
+  s.add_dependency 'coffee-rails'
+  s.add_dependency 'turbolinks'
+  s.add_dependency 'jquery-turbolinks'
+
+  s.add_dependency 'rails-assets-bootstrap', '3.3.5'
+  s.add_dependency 'rails-assets-select2', '4.0.0'
+  s.add_dependency 'rails-assets-highcharts', '4.1.9'
+  s.add_dependency 'rails-assets-papaparse', '4.1.2'
+  s.add_dependency 'rails-assets-handlebars', '4.0.4'
+  s.add_dependency 'rails-assets-accountingjs', '0.4.1'
 end

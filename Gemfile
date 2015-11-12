@@ -1,10 +1,13 @@
 source 'https://rubygems.org'
+source 'https://rails-assets.org'
 
 gemspec
 
 gem 'pry'
 gem 'pry-remote'
 gem 'pry-rails'
+
+gem 'web-console'
 
 group :test do
   gem 'rspec-rails'

@@ -1,5 +1,5 @@
 module Budget
-  class AccountsController < ApplicationController
+  class AccountsController < BaseController
     before_action :set_account, only: [:show, :edit, :update, :destroy]
 
     def index

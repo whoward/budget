@@ -1,11 +1,13 @@
 require 'budget/month_enumerator'
+require 'budget/report/monthly_cashflow'
+require 'budget/report/monthly_debt'
 
 module Budget
   module Reports
-    class MonthlyCashflowController < ApplicationController
+    class MonthlyCashflowController < BaseController
       def show
-        @report = MonthlyCashflowReport.new(time)
-        @debt = MonthlyDebtReport.new(time)
+        @report = Report::MonthlyCashflow.new(time)
+        @debt = Report::MonthlyDebt.new(time)
       end
 
       private

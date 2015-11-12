@@ -1,4 +1,4 @@
-- model_class = ImportService
+- model_class = Budget::ImportService
 
 .page-header
   %h1= t '.title', :default => model_class.model_name.human.pluralize.titleize
@@ -20,5 +20,5 @@
         %td
           = link_to_edit_resource(service)
           = link_to_delete_resource(service)
-        
+
 = link_to t('.new', default: t("helpers.links.new")), new_import_service_path, class: 'btn btn-primary'

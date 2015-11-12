@@ -2,7 +2,7 @@ require 'budget/transaction_factory'
 require 'budget/concerns/review_concern'
 
 module Budget
-  class ImportableTransactionsController < ApplicationController
+  class ImportableTransactionsController < BaseController
     include ReviewConcern
 
     def show

@@ -1,5 +1,5 @@
 module Budget
-  class CategoriesController < ApplicationController
+  class CategoriesController < BaseController
     before_action :set_category, only: [:show, :edit, :update, :destroy]
 
     def index

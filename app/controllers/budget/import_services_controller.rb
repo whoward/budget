@@ -1,5 +1,5 @@
 module Budget
-  class ImportServicesController < ApplicationController
+  class ImportServicesController < BaseController
     before_action :set_import_service, only: [:show, :edit, :update, :destroy]
 
     def index

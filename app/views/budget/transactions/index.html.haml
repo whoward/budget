@@ -5,7 +5,7 @@
     = f.date_field :date_gteq, placeholder: "from", class: "form-control"
     = f.date_field :date_lteq, placeholder: "to", class: "form-control"
     = select_tag "q[category_id_eq]", grouped_options_for_income_and_expenses(params.fetch(:q, {}).fetch(:category_id_eq, nil)), include_blank: true, class: "form-control"
-    = f.collection_select :account_id_eq, Account.all, :id, :name, {include_blank: true}, class: "form-control"
+    = f.collection_select :account_id_eq, Budget::Account.all, :id, :name, {include_blank: true}, class: "form-control"
 
   .pull-right
     = link_to "Make Transfer", transferize_transaction_path(":from_id", ":to_id"), id: "transferize", class: "btn btn-danger"
@@ -29,13 +29,13 @@
         %td
           - if t.split_transaction_id
             %i.fa.fa-sitemap
-          - elsif t.category == Category.transfer_to
+          - elsif t.category == Budget::Category.transfer_to
             %i.fa.fa-arrow-right
-          - elsif t.category == Category.transfer_from
+          - elsif t.category == Budget::Category.transfer_from
             %i.fa.fa-arrow-left
 
         %td= link_to t.description, edit_transaction_path(t, return_to: request.url)
-        %td.span2.amount{class: t.is_a?(Expense) ? "negative" : "positive"}= number_to_currency(cents_to_dollars(t.cents), unit: "")
+        %td.span2.amount{class: t.is_a?(Budget::Expense) ? "negative" : "positive"}= number_to_currency(cents_to_dollars(t.cents), unit: "")
         %td.hidden-sm.hidden-xs= t.category.name
         %td.span2.hidden-sm.hidden-xs= t.account.name
 

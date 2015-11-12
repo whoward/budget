@@ -1,8 +1,6 @@
 
 module Budget
-  class ReviewController < ApplicationController
-    include ReviewConcern
-
+  class ReviewController < BaseController
     def index
       redirect_to next_review_url
     end

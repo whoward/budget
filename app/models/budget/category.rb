@@ -1,11 +1,7 @@
 require 'awesome_nested_set'
 
-require 'budget/concerns/category/fixtures'
-
 module Budget
   class Category < ActiveRecord::Base
-    include Fixtures
-
     acts_as_nested_set
 
     has_many :transactions, dependent: :restrict_with_exception
@@ -29,6 +25,53 @@ module Budget
 
     def budgeted?
       (budgeted_cents || 0) > 0
+    end
+
+    # Fixtures concern here on
+    # --------------------------------------------------------------------------
+    scope :not_fixture, -> { where.not(parent_id: [nil, transfers.id]) }
+    after_create { Budget::Category.invalidate_cache! }
+
+    def income?
+      root == Budget::Category.income
+    end
+
+    def expense?
+      root == Budget::Category.expense
+    end
+
+    def transfer?
+      root == Budget::Category.transfers
+    end
+
+    class << self
+      def income
+        @income ||= roots.find_by(name: 'Income')
+      end
+
+      def expense
+        @expense ||= roots.find_by(name: 'Expense')
+      end
+
+      def transfers
+        @transfers ||= roots.find_by(name: 'Transfers')
+      end
+
+      def transfer_from
+        @transfer_from ||= find_by(parent_id: transfers, name: 'Transfer From')
+      end
+
+      def transfer_to
+        @transfer_to ||= find_by(parent_id: transfers, name: 'Transfer To')
+      end
+
+      def invalidate_cache!
+        @income = nil
+        @expense = nil
+        @transfers = nil
+        @transfer_from = nil
+        @transfer_to = nil
+      end
     end
   end
 end
