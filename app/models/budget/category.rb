@@ -1,4 +1,3 @@
-require 'awesome_nested_set'
 
 module Budget
   class Category < ActiveRecord::Base

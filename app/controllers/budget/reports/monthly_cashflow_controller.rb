@@ -1,6 +1,3 @@
-require 'budget/month_enumerator'
-require 'budget/report/monthly_cashflow'
-require 'budget/report/monthly_debt'
 
 module Budget
   module Reports

@@ -1,4 +1,3 @@
-require 'budget/report/categorical_spending'
 
 module Budget
   module Reports

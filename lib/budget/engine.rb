@@ -1,21 +1,13 @@
-require 'haml'
-require 'twitter-bootstrap-rails'
-require 'bootstrap_form'
-
-require 'jquery-turbolinks'
-require 'turbolinks'
-
-require 'kaminari'
-require 'bootstrap-kaminari-views'
-
-require 'ransack'
-
-%w(bootstrap select2 highcharts papaparse handlebars accountingjs).each do |asset|
-  require "rails-assets-#{asset}"
-end
 
 module Budget
   class Engine < ::Rails::Engine
     isolate_namespace Budget
+
+    initializer 'budget.seeds.ensure' do
+      %i(income expense transfers transfer_from transfer_to).each do |fixture|
+        Category.public_send(fixture) ||
+          fail("unable to load category: #{fixture}, run the seeds for the budget engine")
+      end
+    end
   end
 end

@@ -1,5 +1,3 @@
-require 'budget/transferize_policy'
-
 module Budget
   class TransactionsController < BaseController
     def index

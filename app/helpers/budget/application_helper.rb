@@ -1,4 +1,3 @@
-require 'budget/awesome_nested_set_tree'
 
 module Budget
   module ApplicationHelper

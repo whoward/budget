@@ -1,8 +1,6 @@
-require 'budget/transaction_factory'
 
 module Budget
   class ImportableTransactionsController < BaseController
-
     def show
       use_duplicate_strategy = params[:duplicate] != 'no'
 

@@ -1,5 +1,3 @@
-require 'budget/month_enumerator'
-require 'budget/report/monthly_budget'
 
 module Budget
   module Reports

@@ -33,12 +33,12 @@ RSpec.configure do |config|
     DatabaseCleaner.cleaning { FactoryGirl.lint }
   end
 
-  # config.before(:each) do
-  #   DatabaseCleaner.strategy = :transaction
-  #   DatabaseCleaner.start
-  # end
-  #
-  # config.after(:each) do
-  #   DatabaseCleaner.clean
-  # end
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 end

@@ -1,5 +1,4 @@
 require 'set'
-require 'budget/concerns/preferable'
 
 module Budget
   class ImportService < ActiveRecord::Base

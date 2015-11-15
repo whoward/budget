@@ -37,7 +37,7 @@ module Budget
 
       private
 
-      INCOME_OR_EXPENSE_CLASSES = [Income, Expense, SplitIncomeTransaction, SplitExpenseTransaction]
+      INCOME_OR_EXPENSE_CLASSES = %w(Income Expense SplitIncomeTransaction SplitExpenseTransaction)
 
       attr_reader :txn, :partitions
 
@@ -70,7 +70,7 @@ module Budget
       end
 
       def ensure_transaction_is_expense_or_income
-        invalid(:transaction_must_be_income_or_expense) unless txn.class.in? INCOME_OR_EXPENSE_CLASSES
+        invalid(:transaction_must_be_income_or_expense) unless txn.class.name.demodulize.in? INCOME_OR_EXPENSE_CLASSES
       end
     end
   end
