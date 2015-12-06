@@ -8,8 +8,8 @@ class CreateBudgetImportableTransactions < ActiveRecord::Migration
       t.string :category
       t.integer :cents, null: false
       t.boolean :expense, null: false
-      t.string :account, null: false
-      t.integer :account_id, null: false
+      t.string :account
+      t.string :account_id
       t.string :notes
 
       t.timestamps null: false
