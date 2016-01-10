@@ -1,7 +1,7 @@
 - model_class = Budget::ImportService
 
 .page-header
-  %h1= t '.title', :default => model_class.model_name.human.pluralize.titleize
+  %h1= t '.title', default: model_class.model_name.human.pluralize.titleize
 
 %table.table.table-striped
   %thead
@@ -9,7 +9,7 @@
       %th= model_class.human_attribute_name(:active)
       %th= model_class.human_attribute_name(:name)
       %th= model_class.human_attribute_name(:type)
-      %th= t '.actions', :default => t("helpers.actions")
+      %th= t '.actions', default: t('helpers.actions')
 
   %tbody
     - @import_services.each do |service|

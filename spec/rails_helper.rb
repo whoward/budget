@@ -8,7 +8,7 @@ require 'rspec/rails'
 ActiveRecord::Migration.maintain_test_schema!
 
 # Load seeds
-require Rails.root.join('db', 'seeds')
+require File.expand_path('../db/seeds', __dir__)
 
 # load factory girl factories for this project
 require 'budget/factory_girl'

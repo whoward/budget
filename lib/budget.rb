@@ -31,5 +31,14 @@ require 'budget/transaction_factory'
 require 'budget/transaction_similarity_analyzer'
 require 'budget/transferize_policy'
 
+require 'budget/models/account'
+require 'budget/models/category'
+require 'budget/models/import_service'
+require 'budget/models/importable_account'
+require 'budget/models/importable_category'
+require 'budget/models/importable_transaction'
+require 'budget/models/preference'
+require 'budget/models/transaction'
+
 module Budget
 end

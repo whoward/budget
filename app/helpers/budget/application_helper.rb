@@ -56,14 +56,14 @@ module Budget
 
     def link_to_edit_resource(resource, text: nil, url: nil)
       text ||= t('.edit', default: t('helpers.links.edit'))
-      url ||= url_for(id: resource, controller: resource.class.table_name, action: 'edit')
+      url ||= url_for(id: resource, controller: resource.class.table_name.sub('budget_', ''), action: 'edit')
 
       link_to text, url, class: %w(btn btn-mini)
     end
 
     def link_to_delete_resource(resource, text: nil, url: nil, confirm: nil)
       text ||= t('.destroy', default: t('helpers.links.destroy'))
-      url ||= url_for(id: resource, controller: resource.class.table_name, action: 'destroy')
+      url ||= url_for(id: resource, controller: resource.class.table_name.sub('budget_', ''), action: 'destroy')
       confirm ||= t('.confirm', default: t('helpers.links.confirm', default: 'Are you sure?'))
 
       link_to text, url, method: :delete, data: { confirm: confirm  }, class: 'btn btn-mini btn-danger'
