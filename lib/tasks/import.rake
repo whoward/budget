@@ -2,7 +2,7 @@ require 'logger'
 
 namespace :import do
   def import_from_active_services!(options)
-    ImportService.active.each { |service| service.call(options) }
+    Budget::ImportService.active.each { |service| service.call(options) }
   end
 
   def import!(options)
@@ -14,21 +14,24 @@ namespace :import do
       import_from_active_services!(options)
     end
 
-    return unless [ImportableAccount, ImportableTransaction].any? { |model| model.not_imported.any? }
+    return unless [Budget::ImportableAccount, Budget::ImportableTransaction].any? { |model| model.not_imported.any? }
 
     ApplicationMailer.review_reminder.deliver
   end
 
+  desc 'import from all sources since the earliest point in time'
   task all: :environment do
     import! force_refresh: true
   end
 
+  desc 'import from all sources since 1 week prior to the most recent transaction in the system'
   task recent: :environment do
-    max = [Transaction.maximum(:date), ImportableTransaction.maximum(:date)].max
+    max = [Budget::Transaction.maximum(:date), Budget::ImportableTransaction.maximum(:date)].max
 
-    import! since: max.to_time - 1.week
+    import! since: max.at_beginning_of_day - 1.week
   end
 
+  desc 'import from all sources since the value in the SINCE environment variable'
   task since: :environment do
     since = Chronic.parse(ENV.fetch('SINCE'))
 
