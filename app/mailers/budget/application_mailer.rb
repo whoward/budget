@@ -1,7 +1,7 @@
 module Budget
   class ApplicationMailer < ActionMailer::Base
-    default from: Figaro.env.mail_recipient,
-            to: Figaro.env.mail_recipient
+    default from: Budget.mail_recipient,
+            to: Budget.mail_recipient
 
     def review_reminder
       @txn_count = ImportableTransaction.not_imported.count

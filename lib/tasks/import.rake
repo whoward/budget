@@ -16,7 +16,7 @@ namespace :import do
 
     return unless [Budget::ImportableAccount, Budget::ImportableTransaction].any? { |model| model.not_imported.any? }
 
-    ApplicationMailer.review_reminder.deliver
+    Budget::ApplicationMailer.review_reminder.deliver
   end
 
   desc 'import from all sources since the earliest point in time'

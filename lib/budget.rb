@@ -41,4 +41,9 @@ require 'budget/models/preference'
 require 'budget/models/transaction'
 
 module Budget
+  def self.configure
+    yield self
+  end
+
+  mattr_accessor :mail_recipient
 end
