@@ -16,10 +16,12 @@ module Budget
 
             importable.update_attribute :imported_id, txn.id
 
-            ImportableCategory.find_or_create_by(
-              name: importable.category,
-              imported_id: txn.category_id
-            ).increment!(:import_count)
+            if importable.category
+              ImportableCategory.find_or_create_by(
+                name: importable.category,
+                imported_id: txn.category_id
+              ).increment!(:import_count)
+            end
           end
 
           ServiceResponse::SUCCESS
