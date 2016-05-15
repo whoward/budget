@@ -1,4 +1,5 @@
 
+# frozen_string_literal: true
 FactoryGirl.define do
   factory :preference, class: Budget::Preference do
     owner(factory: :import_service)

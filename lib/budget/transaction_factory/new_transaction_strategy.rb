@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'budget/transaction_similarity_analyzer'
 
 module Budget
@@ -23,8 +24,8 @@ module Budget
         trans.notes = txn.notes
 
         trans.category = Category.find_by(name: txn.category) ||
-          TransactionSimilarityAnalyzer.new(trans).best_category ||
-          ImportableCategory.best_match(txn.category)
+                         TransactionSimilarityAnalyzer.new(trans).best_category ||
+                         ImportableCategory.best_match(txn.category)
 
         trans
       end

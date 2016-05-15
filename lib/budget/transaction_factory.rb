@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'budget/transaction_factory/new_transaction_strategy'
 require 'budget/transaction_factory/duplicate_transaction_strategy'
 

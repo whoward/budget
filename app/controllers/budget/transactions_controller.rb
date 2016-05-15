@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Budget
   class TransactionsController < BaseController
     def index
@@ -65,8 +66,8 @@ module Budget
 
     def scope
       Transaction.order('date desc, cents desc, type desc, id asc')
-        .includes(:account, :category)
-        .not_split_transactions
+                 .includes(:account, :category)
+                 .not_split_transactions
     end
 
     def query

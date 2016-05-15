@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Budget
   class CategoriesController < BaseController
     before_action :set_category, only: [:show, :edit, :update, :destroy]

@@ -1,14 +1,14 @@
 AllCops:
-  RunRailsCops: true
+  TargetRubyVersion: 2.3
   Include:
     - '**/Gemfile'
     - '**/Rakefile'
   Exclude:
    - 'bin/*'
-   - 'db/seeds.rb'
-   - 'db/schema.rb'
-   - 'db/migrate/*'
-   - 'vendor/bundle/**/*'
+   - 'dummy/db/schema.rb'
+
+Rails:
+  Enabled: true
 
 Metrics/AbcSize:
   Max: 41 # TODO: try to get this down to 20

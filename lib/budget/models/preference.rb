@@ -1,4 +1,5 @@
 
+# frozen_string_literal: true
 module Budget
   class Preference < ActiveRecord::Base
     belongs_to :owner, polymorphic: true

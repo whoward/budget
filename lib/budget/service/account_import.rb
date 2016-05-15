@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'budget/service_response'
 
 module Budget

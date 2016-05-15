@@ -1,4 +1,5 @@
 
+# frozen_string_literal: true
 module Budget
   class ImportableTransaction < ActiveRecord::Base
     belongs_to :importable_account, class_name: 'Budget::ImportableAccount',

@@ -1,4 +1,5 @@
 
+# frozen_string_literal: true
 module Budget
   class ReviewController < BaseController
     def index

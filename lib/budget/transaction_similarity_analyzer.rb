@@ -1,4 +1,5 @@
 
+# frozen_string_literal: true
 module Budget
   class TransactionSimilarityAnalyzer
     def initialize(transaction, minimum_similarity: 0.75, results: 5, benchmark: false)
@@ -12,15 +13,15 @@ module Budget
       results = call
 
       # TODO: take frequency of the results and decide most likely single result
-      Category.find(results.first) if results.length > 0
+      Category.find(results.first) unless results.empty?
     end
 
     def call
       escaped_description = ActiveRecord::Base.sanitize(transaction.description)
 
       txns = Transaction.select(:category_id, "levenshtein(description, #{escaped_description}) as distance")
-             .order('distance asc')
-             .limit(results)
+                        .order('distance asc')
+                        .limit(results)
 
       txns.reject { |t| t.distance.to_i > minimum_distance }.map(&:category_id)
     end

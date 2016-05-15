@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Budget
   class Account < ActiveRecord::Base
     has_many :importable_accounts, foreign_key: 'imported_id'

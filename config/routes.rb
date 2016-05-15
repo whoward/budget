@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 Budget::Engine.routes.draw do
   root to: 'reports/monthly_budget#show'
 

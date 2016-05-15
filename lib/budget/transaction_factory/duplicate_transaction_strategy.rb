@@ -1,4 +1,5 @@
 
+# frozen_string_literal: true
 module Budget
   module TransactionFactory
     class DuplicateTransactionStrategy
@@ -27,7 +28,7 @@ module Budget
       # a scope that matches all transactions on attributes which must match
       def base_scope
         Transaction.where(cents: txn.cents, type: imported_type)
-          .where('date between ? and ?', txn.date - 1.day, txn.date + 1.day)
+                   .where('date between ? and ?', txn.date - 1.day, txn.date + 1.day)
       end
     end
   end

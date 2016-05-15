@@ -1,4 +1,5 @@
 
+# frozen_string_literal: true
 FactoryGirl.define do
   factory :category, class: Budget::Category do
     parent_id { Budget::Category.expense.id }

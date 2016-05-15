@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
 Bundler.require(*Rails.groups)
-require "budget"
+require 'budget'
 
 module Dummy
   class Application < Rails::Application
@@ -20,4 +21,3 @@ module Dummy
     # config.i18n.default_locale = :de
   end
 end
-

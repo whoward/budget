@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateBudgetPreferences < ActiveRecord::Migration
   def change
     create_table :budget_preferences do |t|

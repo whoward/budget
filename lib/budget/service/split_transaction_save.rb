@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'budget/service_response'
 
 module Budget
@@ -37,7 +38,7 @@ module Budget
 
       private
 
-      INCOME_OR_EXPENSE_CLASSES = %w(Income Expense SplitIncomeTransaction SplitExpenseTransaction)
+      INCOME_OR_EXPENSE_CLASSES = %w(Income Expense SplitIncomeTransaction SplitExpenseTransaction).freeze
 
       attr_reader :txn, :partitions
 

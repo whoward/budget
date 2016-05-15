@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+# rubocop:disable Metrics/LineLength
+
 class AddForeignKeys < ActiveRecord::Migration
   def change
     add_foreign_key :budget_categories, :budget_categories, column: :parent_id

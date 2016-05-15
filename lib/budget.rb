@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'haml'
 require 'twitter-bootstrap-rails'
 require 'bootstrap_form'

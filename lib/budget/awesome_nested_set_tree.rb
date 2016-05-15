@@ -1,4 +1,5 @@
 
+# frozen_string_literal: true
 module Budget
   class AwesomeNestedSetTree
     include Enumerable
@@ -9,7 +10,7 @@ module Budget
       # TODO: zomg the dirty dirty
       populate = lambda do |n|
         nodes.select { |c| c.parent_id == n.node.id }
-        .map do |c|
+             .map do |c|
           x = Container.new(c, n, nil)
           x.children = populate.call(x)
           x
@@ -18,7 +19,7 @@ module Budget
 
       roots =
         nodes.reject { |n| by_id.keys.include?(n.parent_id) }
-        .map do |n|
+             .map do |n|
           x = Container.new(n, nil, nil)
           x.children = populate.call(x)
           x
@@ -50,7 +51,7 @@ module Budget
       end
 
       def leaf?
-        children.length == 0
+        children.empty?
       end
 
       def ancestors

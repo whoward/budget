@@ -1,4 +1,5 @@
 
+# frozen_string_literal: true
 module Budget
   class MonthEnumerator
     include Enumerable
@@ -12,11 +13,12 @@ module Budget
       @year = start_year
       @month = start_month
 
-      if end_year && end_month
-        @final = Time.zone.local(end_year, end_month, 1, 0, 0, 0)
-      else
-        @final = Time.zone.now.at_beginning_of_month
-      end
+      @final =
+        if end_year && end_month
+          Time.zone.local(end_year, end_month, 1, 0, 0, 0)
+        else
+          Time.zone.now.at_beginning_of_month
+        end
     end
 
     def each

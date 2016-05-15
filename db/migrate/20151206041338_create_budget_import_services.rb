@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateBudgetImportServices < ActiveRecord::Migration
   def change
     create_table :budget_import_services do |t|

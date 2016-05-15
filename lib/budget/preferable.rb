@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'singleton'
 
 module Budget
@@ -34,13 +35,13 @@ module Budget
     end
 
     ActiveRecordStore = Struct.new(:record) do
-      def fetch(preference, &default)
+      def fetch(preference)
         existing = existing(preference)
 
         if existing
           existing.value
         else
-          self[preference] = default.call
+          self[preference] = yield
         end
       end
 

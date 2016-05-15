@@ -1,4 +1,5 @@
 
+# frozen_string_literal: true
 module Budget
   module Reports
     class MonthlyBudgetController < BaseController

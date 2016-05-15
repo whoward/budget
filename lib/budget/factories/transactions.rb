@@ -1,4 +1,5 @@
 
+# frozen_string_literal: true
 FactoryGirl.define do
   factory :transaction, class: Budget::Transaction do
     type 'Budget::Expense'

@@ -1,4 +1,5 @@
 
+# frozen_string_literal: true
 module Budget
   module NullLogger
     %i(debug info warn error critical).each do |level|

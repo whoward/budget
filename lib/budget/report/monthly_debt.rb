@@ -1,4 +1,5 @@
 
+# frozen_string_literal: true
 module Budget
   module Report
     class MonthlyDebt
@@ -34,17 +35,17 @@ module Budget
 
       def totals_by_category
         @totals_by_category ||= Transaction.where(date: time_period)
-                                .where(account_id: debt_account_ids)
-                                .not_split_transactions
-                                .group(:category_id)
-                                .sum(:cents)
+                                           .where(account_id: debt_account_ids)
+                                           .not_split_transactions
+                                           .group(:category_id)
+                                           .sum(:cents)
       end
 
       def summarize(categories)
         categories.map { |cat| CategorySummary.new(cat, totals_by_category[cat.id]) }
-          .reject { |s| s.cents.nil? }
-          .sort_by(&:cents)
-          .reverse
+                  .reject { |s| s.cents.nil? }
+                  .sort_by(&:cents)
+                  .reverse
       end
     end
   end

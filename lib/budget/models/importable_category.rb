@@ -1,4 +1,5 @@
 
+# frozen_string_literal: true
 module Budget
   class ImportableCategory < ActiveRecord::Base
     belongs_to :category, foreign_key: 'imported_id', class_name: 'Budget::Category'

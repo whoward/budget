@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Budget
   class ImportServicesController < BaseController
     before_action :set_import_service, only: [:show, :edit, :update, :destroy]

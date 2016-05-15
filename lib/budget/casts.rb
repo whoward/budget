@@ -1,4 +1,5 @@
 
+# frozen_string_literal: true
 module Budget
   module Casts
     # Converts the given value into a fixnum representing the correct number of cents
@@ -13,12 +14,10 @@ module Budget
 
       when NUMBER_STRING then value.to_i
 
-      else fail ArgumentError, "Cannot cast #{value.class} to cents"
+      else raise ArgumentError, "Cannot cast #{value.class} to cents"
 
       end
     end
-
-    private
 
     DOLLARS_AND_CENTS = /^\d+\.\d{2}$/
 
