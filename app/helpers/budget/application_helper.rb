@@ -34,7 +34,7 @@ module Budget
     end
 
     def grouped_options_for_categories(categories, selected = nil)
-      result = ''
+      result = String.new
       selected = selected.try(:to_i)
 
       visit = lambda do |elem|
