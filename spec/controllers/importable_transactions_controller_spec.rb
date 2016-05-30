@@ -1,9 +1,8 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Budget::ImportableTransactionsController do
-  routes { Budget::Engine.routes }
-
   let!(:txn) { create(:importable_transaction) }
 
   it "renders the 'new' page by default" do

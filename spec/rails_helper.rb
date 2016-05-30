@@ -16,13 +16,3 @@ require File.expand_path('../db/seeds', __dir__)
 
 # load all files in the support/ directory (and subdirectories thereof)
 Dir[Pathname(__dir__).join('support/**/*.rb')].each { |f| require f }
-
-RSpec.configure do |config|
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
-  config.use_transactional_fixtures = true
-
-  # automatically infers the spec type (controller, model, etc) from the directory
-  config.infer_spec_type_from_file_location!
-end
