@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206053324) do
+ActiveRecord::Schema.define(version: 20160530221136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "fuzzystrmatch"
 
   create_table "budget_accounts", force: :cascade do |t|
     t.string   "name",                       null: false
@@ -28,7 +29,7 @@ ActiveRecord::Schema.define(version: 20151206053324) do
     t.string   "name",           null: false
     t.integer  "lft",            null: false
     t.integer  "rgt",            null: false
-    t.integer  "depth",          null: false
+    t.integer  "depth"
     t.integer  "budgeted_cents"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
