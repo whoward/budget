@@ -10,6 +10,8 @@ gem 'pry-rails'
 
 gem 'web-console'
 
+gem 'rubocop'
+
 group :test do
   gem 'rspec-rails'
   gem 'rspec-its'

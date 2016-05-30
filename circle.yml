@@ -1,0 +1,10 @@
+
+database:
+  override:
+    - cd dummy
+    - bundle exec rake db:create db:migrate
+
+test:
+  override:
+    - bundle exec rubocop
+    - bundle exec rspec
