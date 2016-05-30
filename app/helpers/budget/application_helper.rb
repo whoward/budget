@@ -34,7 +34,7 @@ module Budget
     end
 
     def grouped_options_for_categories(categories, selected = nil)
-      result = String.new
+      result = StringIO.new
       selected = selected.try(:to_i)
 
       visit = lambda do |elem|
@@ -52,7 +52,7 @@ module Budget
 
       AwesomeNestedSetTree.from_nodes(categories).roots.each { |r| visit.call(r) }
 
-      result.html_safe
+      result.string.html_safe
     end
 
     def link_to_edit_resource(resource, text: nil, url: nil)
