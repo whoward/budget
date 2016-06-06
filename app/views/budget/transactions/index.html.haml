@@ -1,7 +1,7 @@
 = page_header "Transactions"
 
 #search
-  = search_form_for query, class: "form-inline" do |f|
+  = search_form_for query, class: "form-inline", id: 'transaction_search' do |f|
     = f.date_field :date_gteq, placeholder: "from", class: "form-control"
     = f.date_field :date_lteq, placeholder: "to", class: "form-control"
     = select_tag "q[category_id_eq]", grouped_options_for_income_and_expenses(params.fetch(:q, {}).fetch(:category_id_eq, nil)), include_blank: true, class: "form-control"
