@@ -1,0 +1,12 @@
+
+= bootstrap_form_for @category do |f|
+  = f.collection_select :parent_id, Budget::Category.all, :id, :name, {:include_blank => true}, {:class => 'select2'}
+
+  = f.text_field :name
+
+  = f.text_field :budgeted_cents
+
+  = f.check_box :watched
+
+  .form-actions
+    = f.submit nil, :class => 'btn btn-primary'

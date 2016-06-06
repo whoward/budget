@@ -7,9 +7,6 @@ module Budget
       @categories = Category.order(watched: :desc)
     end
 
-    def show
-    end
-
     def new
       @category = Category.new
     end
@@ -20,35 +17,24 @@ module Budget
     def create
       @category = Category.new(category_params)
 
-      respond_to do |format|
-        if @category.save
-          format.html { redirect_to @category, notice: 'Category was successfully created.' }
-          format.json { render action: 'show', status: :created, location: @category }
-        else
-          format.html { render action: 'new' }
-          format.json { render json: @category.errors, status: :unprocessable_entity }
-        end
+      if @category.save
+        redirect_to action: :index, notice: 'Category was successfully created.'
+      else
+        render action: 'new'
       end
     end
 
     def update
-      respond_to do |format|
-        if @category.update(category_params)
-          format.html { redirect_to @category, notice: 'Category was successfully updated.' }
-          format.json { head :no_content }
-        else
-          format.html { render action: 'edit' }
-          format.json { render json: @category.errors, status: :unprocessable_entity }
-        end
+      if @category.update(category_params)
+        redirect_to action: :index, notice: 'Category was successfully updated.'
+      else
+        render action: 'edit'
       end
     end
 
     def destroy
       @category.destroy
-      respond_to do |format|
-        format.html { redirect_to categories_url }
-        format.json { head :no_content }
-      end
+      redirect_to action: :index
     end
 
     private
