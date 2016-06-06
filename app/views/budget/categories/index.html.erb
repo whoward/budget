@@ -20,7 +20,7 @@
         <td><%= category.parent.try(:name) %></td>
         <td><%= category.name %></td>
         <td class='amount'><%= number_to_currency(cents_to_dollars(category.budgeted_cents), unit: "") %></td>
-        <td><% if category.watched %><i class='fa fa-eye fa-large'/><% end %></td>
+        <td class='text-center'><% if category.watched %><i class='fa fa-eye fa-2x'/><% end %></td>
         <td>
           <% if  category.can_edit? %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
