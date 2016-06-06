@@ -4,7 +4,7 @@ module Budget
     before_action :set_category, only: [:show, :edit, :update, :destroy]
 
     def index
-      @categories = Category.all
+      @categories = Category.order(watched: :desc)
     end
 
     def show
@@ -58,7 +58,7 @@ module Budget
     end
 
     def category_params
-      params.require(:category).permit(:parent_id, :name, :budgeted_cents)
+      params.require(:category).permit(:parent_id, :name, :budgeted_cents, :watched)
     end
   end
 end

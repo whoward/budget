@@ -5,11 +5,12 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th class='span1'><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:parent) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
-      <th class='span2'>Budget</th>
-      <th class='span2'><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th>Budget</th>
+      <th>Watched</th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
@@ -19,6 +20,7 @@
         <td><%= category.parent.try(:name) %></td>
         <td><%= category.name %></td>
         <td class='amount'><%= number_to_currency(cents_to_dollars(category.budgeted_cents), unit: "") %></td>
+        <td><% if category.watched %><i class='fa fa-eye fa-large'/><% end %></td>
         <td>
           <% if  category.can_edit? %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
