@@ -6,7 +6,7 @@
     = f.date_field :date_lteq, placeholder: "to", class: "form-control"
     = select_tag "q[category_id_eq]", grouped_options_for_income_and_expenses(params.fetch(:q, {}).fetch(:category_id_eq, nil)), include_blank: true, class: "form-control"
     = f.collection_select :account_id_eq, Budget::Account.all, :id, :name, {include_blank: true}, class: "form-control"
-
+    = f.search_field :description_cont, placeholder: 'Search', class: 'form-control'
   .pull-right
     = link_to "Make Transfer", transferize_transaction_path(":from_id", ":to_id"), id: "transferize", class: "btn btn-danger"
 
