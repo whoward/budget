@@ -8,17 +8,17 @@
   = f.hidden_field :cents
 
   .row-fluid
-    .span6
+    .col-xs-12.col-sm-6
       = f.form_group :amount, label: {text: "Amount"} do
         %strong.form-control.read-only.amount{class: importable_transaction.expense ? "negative" : "positive"}= number_to_currency cents_to_dollars importable_transaction.signed_cents
       = f.collection_select :account_id, Budget::Account.order(:name), :id, :name, {help: "Imported from: #{importable_transaction.account}"}, {class: "select2", style: "width:100%;"}
       = f.collection_select :category_id, root_category.descendants.sort_by(&:name), :id, :name, {help: "Imported from: #{importable_transaction.category}"}, {class: "select2", style: "width:100%;"}
 
-    .span6
-      = f.text_field :date, type: "date", class: "span12"
-      = f.text_field :description, class: "span12"
-      = f.text_area :notes, class: "span12"
+    .col-xs-12.col-sm-6
+      = f.text_field :date, type: "date"
+      = f.text_field :description
+      = f.text_area :notes
 
   .row-fluid
-    .form-actions.span12
+    .form-actions.col-xs-12
       = f.submit "Verify", class: "btn btn-primary"

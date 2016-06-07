@@ -7,10 +7,10 @@
     = f.collection_select :category_id, root_category.descendants.sort_by(&:name), :id, :name, {}, {class: "select2", style: "width:100%"}
 
   %div
-    = f.text_area :notes, class: "span12"
+    = f.text_area :notes
 
   .row-fluid
-    .form-actions.span12
+    .form-actions
       = f.submit "Update", class: "btn btn-primary"
 
       - if @transaction.splittable?
