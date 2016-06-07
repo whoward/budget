@@ -1,0 +1,6 @@
+= bootstrap_form_for @account do |f|
+  = f.text_field :name
+  = f.check_box :debt
+
+  .form-actions
+    = f.submit nil, class: 'btn btn-primary'

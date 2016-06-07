@@ -1,0 +1,28 @@
+
+.page-header
+  .pull-right
+    = link_to "New Account", new_account_path, class: 'btn btn-primary'
+  %h1 Accounts
+
+%table.table.table-striped
+  %colgroup
+    %col{style: 'width: 5%'}
+    %col
+    %col{style: 'width: 20%'}
+    %col{style: 'width: 15%'}
+  %thead
+    %tr
+      %th
+      %th Name
+      %th Created
+      %th Actions
+  %tbody
+    - @accounts.each do |account|
+      %tr
+        %td.text-center
+          %i.fa.fa-2x{class: account.debt ? 'fa-balance-scale' : 'fa-dollar'}
+        %td= account.name
+        %td= l account.created_at, format: :long
+        %td
+          = link_to "Edit", edit_account_path(account), class: 'btn btn-mini'
+          = link_to 'Destroy', account_path(account), method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: 'Are you sure?' }

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Budget
   class CategoriesController < BaseController
-    before_action :set_category, only: [:show, :edit, :update, :destroy]
+    before_action :set_category, only: %w(edit update destroy)
 
     def index
       @income = Category.income.descendants.sort_by(&:name)

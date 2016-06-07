@@ -17,7 +17,7 @@ Budget::Engine.routes.draw do
 
   patch '/transactions/:from_id/transferize/:to_id', as: :transferize_transaction, to: 'transactions#transferize'
 
-  resources :accounts
+  resources :accounts, except: %i(show)
   resources :categories, except: %i(show)
   resources :import_services
 

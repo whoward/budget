@@ -1,13 +1,11 @@
 # frozen_string_literal: true
+
 module Budget
   class AccountsController < BaseController
-    before_action :set_account, only: [:show, :edit, :update, :destroy]
+    before_action :set_account, only: %w(edit update destroy)
 
     def index
       @accounts = Account.all
-    end
-
-    def show
     end
 
     def new
@@ -20,35 +18,24 @@ module Budget
     def create
       @account = Account.new(account_params)
 
-      respond_to do |format|
-        if @account.save
-          format.html { redirect_to @account, notice: 'Account was successfully created.' }
-          format.json { render action: 'show', status: :created, location: @account }
-        else
-          format.html { render action: 'new' }
-          format.json { render json: @account.errors, status: :unprocessable_entity }
-        end
+      if @account.save
+        redirect_to action: :index, notice: 'Account was successfully created.'
+      else
+        render action: 'new'
       end
     end
 
     def update
-      respond_to do |format|
-        if @account.update(account_params)
-          format.html { redirect_to @account, notice: 'Account was successfully updated.' }
-          format.json { head :no_content }
-        else
-          format.html { render action: 'edit' }
-          format.json { render json: @account.errors, status: :unprocessable_entity }
-        end
+      if @account.update(account_params)
+        redirect_to action: :index, notice: 'Account was successfully updated.'
+      else
+        render action: 'edit'
       end
     end
 
     def destroy
       @account.destroy
-      respond_to do |format|
-        format.html { redirect_to accounts_url }
-        format.json { head :no_content }
-      end
+      redirect_to accounts_url
     end
 
     private
