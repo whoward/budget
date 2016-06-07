@@ -37,6 +37,8 @@ bind(".select2", function(node) {
 
 bind("#search", function(node) { node.affix(); return true; });
 
+bind('[data-toggle="tooltip"]', function(node) { node.tooltip(); });
+
 $(document).on("change", "#transaction_search :input", function() {
   $("#transaction_search").submit()
 });
