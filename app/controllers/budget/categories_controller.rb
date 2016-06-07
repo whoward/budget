@@ -4,7 +4,8 @@ module Budget
     before_action :set_category, only: [:show, :edit, :update, :destroy]
 
     def index
-      @categories = Category.order(watched: :desc)
+      @income = Category.income.descendants.sort_by(&:name)
+      @expenses = Category.expense.descendants.sort_by(&:name)
     end
 
     def new

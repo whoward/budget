@@ -1,34 +1,40 @@
 - model_class = Budget::Category
 
 .page-header
+  .pull-right
+    = link_to 'New Category', new_category_path, class: 'btn btn-primary'
   %h1 Categories
 
 %table.table.table-striped
-  %thead
-    %tr
-      %th= model_class.human_attribute_name(:parent)
-      %th= model_class.human_attribute_name(:name)
-      %th Budget
-      %th Watched
-      %th= t '.actions', :default => t("helpers.actions")
-  %tbody
-    - @categories.each do |category|
+  - [@income, @expenses].each do |categories|
+    %colgroup
+      %col{style: 'width: 5%'}
+      %col
+      %col{style: 'width: 10%'}
+      %col{style: 'width: 15%'}
+    %thead
       %tr
-        %td= category.parent.try(:name)
-        %td= category.name
-        %td.amount= number_to_currency(cents_to_dollars(category.budgeted_cents), unit: "")
-        %td.text-center
-          - if category.watched
-            %i.fa.fa-eye.fa-2x
-        %td
-          - if  category.can_edit?
-            = link_to t('.edit', :default => t("helpers.links.edit")), |
-              edit_category_path(category), :class => 'btn btn-mini'   |
-          - if category.can_destroy?
-            = link_to t('.destroy', :default => t("helpers.links.destroy")),                                               |
-              category_path(category),                                                                                     |
-              :method => :delete,                                                                                          |
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, |
-              :class => 'btn btn-mini btn-danger'                                                                          |
-
-= link_to 'New Category', new_category_path, class: 'btn btn-primary'
+        %th{colspan: 99}= categories.first.parent.name
+      %tr
+        %th
+        %th= model_class.human_attribute_name(:name)
+        %th.text-center Budget
+        %th.text-center= t '.actions', :default => t("helpers.actions")
+    %tbody
+      - categories.each do |category|
+        %tr
+          %td.text-center
+            - if category.watched
+              %i.fa.fa-eye.fa-2x
+          %td= category.name
+          %td.amount= number_to_currency(cents_to_dollars(category.budgeted_cents), unit: "")
+          %td.text-center
+            - if  category.can_edit?
+              = link_to t('.edit', :default => t("helpers.links.edit")), |
+                edit_category_path(category), :class => 'btn btn-mini'   |
+            - if category.can_destroy?
+              = link_to t('.destroy', :default => t("helpers.links.destroy")),                                               |
+                category_path(category),                                                                                     |
+                :method => :delete,                                                                                          |
+                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, |
+                :class => 'btn btn-mini btn-danger'                                                                          |
