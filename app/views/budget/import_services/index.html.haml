@@ -1,24 +1,31 @@
-- model_class = Budget::ImportService
-
 .page-header
-  %h1= t '.title', default: model_class.model_name.human.pluralize.titleize
+  .pull-right
+    = link_to "New Import Service", new_import_service_path, class: 'btn btn-primary'
+
+  %h1 New Import Service
 
 %table.table.table-striped
+  %colgroup
+    %col{style: 'width: 5%'}
+    %col
+    %col{style: 'width: 30%'}
+    %col{style: 'width: 15%'}
+
   %thead
     %tr
-      %th= model_class.human_attribute_name(:active)
-      %th= model_class.human_attribute_name(:name)
-      %th= model_class.human_attribute_name(:type)
-      %th= t '.actions', default: t('helpers.actions')
+      %th
+      %th Name
+      %th Type
+      %th
 
   %tbody
     - @import_services.each do |service|
       %tr
-        %td= service.active
+        %td.text-center
+          %i.fa.fa-2x{class: service.active ? 'fa-check-circle text-success' : 'fa-times-circle text-danger'}
+
         %td= service.name
         %td= service.type
         %td
           = link_to_edit_resource(service)
           = link_to_delete_resource(service)
-
-= link_to t('.new', default: t("helpers.links.new")), new_import_service_path, class: 'btn btn-primary'

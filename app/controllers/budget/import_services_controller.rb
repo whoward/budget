@@ -17,41 +17,24 @@ module Budget
     def create
       @import_service = ImportService.new(import_service_params)
 
-      respond_to do |format|
-        if @import_service.save
-          format.html do
-            flash[:notice] = 'import service was successfully created.'
-            redirect_to edit_import_service_url(@import_service)
-          end
-          format.json { render action: 'show', status: :created, location: @import_service }
-        else
-          format.html { render action: 'new' }
-          format.json { render json: @import_service.errors, status: :unprocessable_entity }
-        end
+      if @import_service.save
+        redirect_to action: :index, notice: 'import service was successfully created.'
+      else
+        render action: 'new'
       end
     end
 
     def update
-      respond_to do |format|
-        if @import_service.update(import_service_params)
-          format.html do
-            flash[:notice] = 'import service was successfully updated.'
-            redirect_to edit_import_service_url(@import_service)
-          end
-          format.json { head :no_content }
-        else
-          format.html { render action: 'edit' }
-          format.json { render json: @import_service.errors, status: :unprocessable_entity }
-        end
+      if @import_service.update(import_service_params)
+        redirect_to action: :index, notice: 'import service was successfully updated.'
+      else
+        render action: 'edit'
       end
     end
 
     def destroy
       @import_service.destroy
-      respond_to do |format|
-        format.html { redirect_to import_services_url }
-        format.json { head :no_content }
-      end
+      redirect_to action: :index, notice: 'import service deleted'
     end
 
     private

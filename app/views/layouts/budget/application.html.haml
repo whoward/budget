@@ -28,5 +28,8 @@
     = render "layouts/budget/navigation"
 
     #wrap.container-fluid
+      .row
+        .col-xs-12
+          = bootstrap_flash
       .row-fluid
-        = render content_for?(:sidebar) ? "layouts/budget/content_with_sidebar" : "layouts/budget/content"
+        = yield

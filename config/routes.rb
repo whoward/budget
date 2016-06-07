@@ -19,7 +19,7 @@ Budget::Engine.routes.draw do
 
   resources :accounts, except: %i(show)
   resources :categories, except: %i(show)
-  resources :import_services
+  resources :import_services, except: %i(show)
 
   scope path: 'reports' do
     get 'monthly-debt', to: 'reports/monthly_debt#show', as: :monthly_debt_report
