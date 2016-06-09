@@ -69,5 +69,21 @@ module Budget
 
       link_to text, url, method: :delete, data: { confirm: confirm  }, class: 'btn btn-mini btn-danger'
     end
+
+    def icon_tag(icon_class, attributes = {})
+      tag(:i, attributes.merge(class: "fa fa-#{icon_class}"))
+    end
+
+    def icon_with_tooltip(icon_class, text, placement: :top)
+      icon_tag icon_class, data: {
+        toggle: :tooltip,
+        placement: placement,
+        title: text
+      }
+    end
+
+    def format_amount(cents)
+      number_to_currency(cents_to_dollars(cents), unit: '')
+    end
   end
 end

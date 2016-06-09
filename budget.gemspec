@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'awesome_nested_set'
   s.add_dependency 'ransack'
   s.add_dependency 'bootstrap-kaminari-views'
+  s.add_dependency 'draper', '~> 2.1'
   s.add_dependency 'sass-rails'
   s.add_dependency 'coffee-rails'
   s.add_dependency 'turbolinks'

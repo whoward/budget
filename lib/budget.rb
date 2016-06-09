@@ -13,6 +13,8 @@ require 'ransack'
 
 require 'awesome_nested_set'
 
+require 'draper'
+
 require 'csv'
 
 %w(bootstrap select2 highcharts papaparse handlebars accountingjs).each do |asset|
@@ -40,6 +42,10 @@ require 'budget/models/importable_category'
 require 'budget/models/importable_transaction'
 require 'budget/models/preference'
 require 'budget/models/transaction'
+
+require 'budget/decorators/paging_decorator'
+require 'budget/decorators/application_decorator'
+require 'budget/decorators/transaction_decorator'
 
 module Budget
   def self.configure

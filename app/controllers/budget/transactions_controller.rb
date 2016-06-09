@@ -2,6 +2,9 @@
 module Budget
   class TransactionsController < BaseController
     def index
+      render :index, locals: {
+        collection: Budget::TransactionDecorator.decorate_collection(collection)
+      }
     end
 
     def edit
@@ -78,7 +81,6 @@ module Budget
     def collection
       query.result.page(params.fetch(:page, 1)).per(50)
     end
-    helper_method :collection
 
     def root_category
       @_root_category ||= @transaction.is_a?(Expense) ? Category.expense : Category.income
