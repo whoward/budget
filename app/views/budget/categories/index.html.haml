@@ -1,12 +1,7 @@
-- model_class = Budget::Category
-
-.page-header
-  .pull-right
-    = link_to 'New Category', new_category_path, class: 'btn btn-primary'
-  %h1 Categories
+= page_header_with_add_button Budget::Category
 
 %table.table.table-striped
-  - [@income, @expenses].each do |categories|
+  - [income, expenses].each do |categories|
     %colgroup
       %col{style: 'width: 5%'}
       %col
@@ -14,22 +9,18 @@
       %col{style: 'width: 15%'}
     %thead
       %tr
-        %th{colspan: 99}= categories.first.parent.name
+        %th{colspan: 99}= categories.first.parent_name
       %tr
         %th
-        %th= model_class.human_attribute_name(:name)
+        %th Name
         %th.text-center Budget
-        %th.text-center= t '.actions', :default => t("helpers.actions")
+        %th.text-center Actions
     %tbody
       - categories.each do |category|
         %tr
-          %td.text-center
-            - if category.watched
-              %i.fa.fa-eye.fa-2x
+          %td.text-center= category.icon
           %td= category.name
-          %td.amount= number_to_currency(cents_to_dollars(category.budgeted_cents), unit: "")
+          %td.amount= format_amount category.budgeted_cents
           %td.text-center
-            - if  category.can_edit?
-              = link_to 'Edit', edit_category_path(category), class: 'btn btn-mini'
-            - if category.can_destroy?
-              = link_to 'Destroy', category_path(category), method: :delete, class: 'btn btn-mini btn-danger', data: {confirm: 'Are you sure?'}
+            = category.link_to_edit
+            = category.link_to_delete

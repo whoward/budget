@@ -4,8 +4,14 @@ module Budget
     before_action :set_category, only: %w(edit update destroy)
 
     def index
-      @income = Category.income.descendants.sort_by(&:name)
-      @expenses = Category.expense.descendants.sort_by(&:name)
+      render :index, locals: {
+        income: Budget::CategoryDecorator.decorate_collection(
+          Category.income.descendants.sort_by(&:name)
+        ),
+        expenses: Budget::CategoryDecorator.decorate_collection(
+          Category.expense.descendants.sort_by(&:name)
+        )
+      }
     end
 
     def new
