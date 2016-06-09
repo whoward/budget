@@ -22,9 +22,20 @@ module Budget
       number_to_currency cents_to_dollars(cents), *args, &block
     end
 
-    def page_header(header = '')
+    def page_header(header)
       content_tag(:div, class: 'page-header') do
         content_tag(:h1, header)
+      end
+    end
+
+    def page_header_with_add_button(model, url: nil, header: nil, new_text: nil)
+      url ||= url_for(controller: model.table_name.sub('budget_', ''), action: 'new')
+      header ||= model.model_name.human.pluralize
+      new_text ||= "New #{model.model_name.human}"
+
+      content_tag(:div, class: 'page-header') do
+        link_to(new_text, url, class: 'btn btn-primary pull-right') +
+          content_tag(:h1, header)
       end
     end
 

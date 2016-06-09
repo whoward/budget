@@ -5,7 +5,9 @@ module Budget
     before_action :set_account, only: %w(edit update destroy)
 
     def index
-      @accounts = Account.all
+      render :index, locals: {
+        collection: AccountDecorator.decorate_collection(Account.all)
+      }
     end
 
     def new

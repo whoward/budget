@@ -46,6 +46,7 @@ require 'budget/models/transaction'
 require 'budget/decorators/paging_decorator'
 require 'budget/decorators/application_decorator'
 require 'budget/decorators/transaction_decorator'
+require 'budget/decorators/account_decorator'
 
 module Budget
   def self.configure
