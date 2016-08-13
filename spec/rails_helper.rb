@@ -12,6 +12,7 @@ require 'rspec/rails'
 ActiveRecord::Migration.maintain_test_schema!
 
 # Load seeds
+DatabaseCleaner.clean_with(:truncation)
 require File.expand_path('../db/seeds', __dir__)
 
 # load all files in the support/ directory (and subdirectories thereof)

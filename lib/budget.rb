@@ -1,4 +1,13 @@
 # frozen_string_literal: true
+
+def load_directory(path)
+  Pathname(path).children('**/*.rb').each { |f| require f }
+end
+
+def load_app_directory(name)
+  load_directory Pathname(__dir__).join('..', 'app', name)
+end
+
 require 'haml'
 require 'twitter-bootstrap-rails'
 require 'bootstrap_form'
@@ -21,33 +30,27 @@ require 'csv'
   require "rails-assets-#{asset}"
 end
 
-require 'budget/awesome_nested_set_tree'
-require 'budget/casts'
 require 'budget/engine'
+
+require 'budget/awesome_nested_set_tree'
+require 'budget/cast'
+require 'budget/db'
 require 'budget/month_enumerator'
 require 'budget/null_logger'
 require 'budget/preferable'
-require 'budget/report'
-require 'budget/service'
 require 'budget/service_response'
 require 'budget/transaction_factory'
 require 'budget/transaction_similarity_analyzer'
 require 'budget/transferize_policy'
+require 'budget/time_period'
 
-require 'budget/models/account'
-require 'budget/models/category'
-require 'budget/models/import_service'
-require 'budget/models/importable_account'
-require 'budget/models/importable_category'
-require 'budget/models/importable_transaction'
-require 'budget/models/preference'
-require 'budget/models/transaction'
-
-require 'budget/decorators/paging_decorator'
-require 'budget/decorators/application_decorator'
-require 'budget/decorators/transaction_decorator'
-require 'budget/decorators/account_decorator'
-require 'budget/decorators/category_decorator'
+load_app_directory 'calculators'
+load_app_directory 'casts'
+load_app_directory 'models'
+load_app_directory 'decorators'
+load_app_directory 'services'
+load_app_directory 'reports'
+load_app_directory 'view_models'
 
 module Budget
   def self.configure

@@ -29,6 +29,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'coffee-rails'
   s.add_dependency 'turbolinks'
   s.add_dependency 'jquery-turbolinks'
+  s.add_dependency 'sequel'
+  s.add_dependency 'premailer-rails'
 
   s.add_dependency 'rails-assets-bootstrap', '3.3.5'
   s.add_dependency 'rails-assets-select2', '4.0.0'

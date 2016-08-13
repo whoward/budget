@@ -1,0 +1,25 @@
+= card do
+  -# TODO: also include unbudgeted spending
+  %h3 Your total budgeted spending so far this month is #{page.total_budgeted_spending}
+
+  = page.spending_progress_bar
+
+= card do
+  %h3= page.remaining_days_header
+
+  = page.remaining_days_progress_bar
+
+= card do
+  %h3= page.summary
+
+  %table.bordered
+    %tr
+      %th.text Category
+      %th.text Budget
+      %th.text Spending
+
+    - page.overbudget_categories.each do |cat|
+      %tr
+        %td.text= link_to cat.name, cat.transactions_url, target: :_blank
+        %td.text= cat.budget_amount
+        %td.text= cat.overbudget_amount

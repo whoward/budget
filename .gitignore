@@ -5,4 +5,3 @@ dummy/log/*.log
 dummy/tmp/
 dummy/.sass-cache
 .ruby-gemset
-.rspec

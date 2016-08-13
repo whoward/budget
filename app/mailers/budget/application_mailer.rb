@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Budget
   class ApplicationMailer < ActionMailer::Base
     default from: Budget.mail_recipient,

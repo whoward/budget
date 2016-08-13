@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-require 'rails_helper'
-require 'budget/service/split_transaction_save'
 
 describe Budget::Service::SplitTransactionSave do
   describe '#validate' do
