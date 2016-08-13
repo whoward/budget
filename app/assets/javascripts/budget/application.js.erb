@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery.turbolinks
 
 //= require turbolinks
 //= require twitter/bootstrap
@@ -27,9 +26,6 @@
 //= require_tree ./plots
 //= require_self
 
-// does not seem to work anymore
-// Turbolinks.enableProgressBar();
-
 window.routes = <%= Hash[Budget::Engine.routes.named_routes.routes.map {|k,v| [k, v.ast.to_s.gsub("(.:format)", "")] }].to_json %>
 
 bind(".select2", function(node) {
@@ -41,12 +37,15 @@ bind("#search", function(node) { node.affix(); return true; });
 bind('[data-toggle="tooltip"]', function(node) { node.tooltip(); });
 
 $(document).on("change", "#transaction_search :input", function() {
-  $("#transaction_search").submit()
+  var params = $("#transaction_search").serializeArray();
+  var query = $.param(params);
+  Turbolinks.visit(window.location.pathname + "?" + query);
 });
 
 $(document).on("change", "#report-month", function() {
   var route = $(this).data("route");
-  window.location = routes[route].replace(":year-:month", $(this).val());
+  var url = routes[route].replace(":year-:month", $(this).val());
+  Turbolinks.visit(url);
 });
 
 $(document).on("change", "#transactions input[type=checkbox]", function() {

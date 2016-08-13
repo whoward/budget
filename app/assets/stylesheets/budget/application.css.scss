@@ -14,11 +14,11 @@
  *= require_self
  */
 
-html.turbolinks-progress-bar::before {
-  background-color: red !important;
-  height: 5px !important;
-}
-
+ .turbolinks-progress-bar {
+   height: 5px;
+   background-color: red;
+ }
+ 
 .amount {
   &.positive {
     color: #74aa00;

@@ -3,6 +3,10 @@ $(document).ready(function() {
   $(document).trigger('bind');
 });
 
+$(document).on('turbolinks:load', function() {
+  $(document).trigger('bind');
+})
+
 window.bind = function(selector, callback) {
   $(document).on("bind", function() {
     $(selector, this).each(function() {
