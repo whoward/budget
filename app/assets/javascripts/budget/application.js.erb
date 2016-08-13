@@ -27,7 +27,8 @@
 //= require_tree ./plots
 //= require_self
 
-Turbolinks.enableProgressBar();
+// does not seem to work anymore
+// Turbolinks.enableProgressBar();
 
 window.routes = <%= Hash[Budget::Engine.routes.named_routes.routes.map {|k,v| [k, v.ast.to_s.gsub("(.:format)", "")] }].to_json %>
 
