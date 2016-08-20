@@ -2,6 +2,8 @@
 
 namespace :import do
   def service(options)
+    require 'budget/service/import_all'
+
     headless = ENV.fetch('XVFB', 'false') == 'true'
 
     Budget::Service::ImportAll.new(headless: headless, options: options)

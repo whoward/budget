@@ -4,10 +4,6 @@ module Budget
   class Engine < ::Rails::Engine
     isolate_namespace Budget
 
-    rake_tasks do
-      load File.join(root, 'lib', 'tasks', 'import.rake')
-    end
-
     initializer 'budget.seeds.ensure' do
       # don't run this initializer unless the migrations have been run
       next unless Budget::Category.table_exists?
