@@ -44,6 +44,7 @@ module Budget
         service.call(options)
       rescue StandardError => e
         logger.error "import failed: #{e.inspect}"
+        Budget.error_handler.call(e)
       end
 
       def deliver_notification

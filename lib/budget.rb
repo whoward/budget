@@ -54,5 +54,10 @@ module Budget
     yield self
   end
 
+  # the default error handler just swallows it
+  DEFAULT_ERROR_HANDLER = -> (_) {}
+
   mattr_accessor :mail_recipient
+
+  mattr_accessor(:error_handler) { DEFAULT_ERROR_HANDLER }
 end
