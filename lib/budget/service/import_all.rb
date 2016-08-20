@@ -4,7 +4,7 @@ require 'logger'
 module Budget
   module Service
     class ImportAll
-      def initialize(headless: false, logger: Logger.new($stdout), **options)
+      def initialize(headless: false, logger: build_logger, options: {})
         @headless = headless
         @options = options
         options[:logger] = logger
@@ -20,6 +20,12 @@ module Budget
       attr_reader :headless, :options
 
       IMPORTABLES = [Budget::ImportableAccount, Budget::ImportableTransaction].freeze
+
+      def build_logger
+        logger = Logger.new($stdout)
+        logger.level = Logger::DEBUG
+        logger
+      end
 
       def logger
         options[:logger]
@@ -44,6 +50,7 @@ module Budget
         service.call(options)
       rescue StandardError => e
         logger.error "import failed: #{e.inspect}"
+        logger.debug e.backtrace.join("\n")
         Budget.error_handler.call(e)
       end
 
