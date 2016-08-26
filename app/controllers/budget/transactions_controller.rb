@@ -45,7 +45,7 @@ module Budget
         attrs = part.permit(:category_id, :cents, :notes)
         inherited = txn.attributes.slice('account_id', 'date', 'description')
 
-        attrs[:cents] = Cents(attrs[:cents])
+        attrs[:cents] = Cast::Cents(attrs[:cents])
 
         klass = txn.is_a?(Expense) ? Expense : Income
 

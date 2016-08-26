@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160530221136) do
+ActiveRecord::Schema.define(version: 20160606215417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,13 +26,14 @@ ActiveRecord::Schema.define(version: 20160530221136) do
 
   create_table "budget_categories", force: :cascade do |t|
     t.integer  "parent_id"
-    t.string   "name",           null: false
-    t.integer  "lft",            null: false
-    t.integer  "rgt",            null: false
+    t.string   "name",                           null: false
+    t.integer  "lft",                            null: false
+    t.integer  "rgt",                            null: false
     t.integer  "depth"
     t.integer  "budgeted_cents"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.boolean  "watched",        default: false
   end
 
   add_index "budget_categories", ["depth"], name: "index_budget_categories_on_depth", using: :btree

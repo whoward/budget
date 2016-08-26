@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-require 'rails_helper'
-require 'budget/report/monthly_cashflow'
 
 describe Budget::Report::MonthlyCashflow do
   subject { described_class.new }

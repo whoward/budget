@@ -1,12 +1,12 @@
-
 # frozen_string_literal: true
+
 module Budget
-  module Casts
+  module Cast
     # Converts the given value into a fixnum representing the correct number of cents
-    def Cents(value)
+    define_cast(:Cents) do |value|
       case value
 
-      when Fixnum then value
+      when Integer then value
 
       when Float then (value * 100).round
 
@@ -14,7 +14,7 @@ module Budget
 
       when NUMBER_STRING then value.to_i
 
-      else raise ArgumentError, "Cannot cast #{value.class} to cents"
+      else raise Cast::Error, "Cannot cast #{value.class} to cents"
 
       end
     end

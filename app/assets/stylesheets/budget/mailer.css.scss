@@ -1,0 +1,52 @@
+@import 'mailer/progress-bar.css.scss';
+
+$background-color: #51445F;
+
+h1, h2, h3, h4, h5, h6, p, .text {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #303030;
+  font-weight: normal;
+  margin: 0 0 15px 0;
+}
+
+table {
+  -premailer-cellspacing: 0;
+  -premailer-width: 100%;
+  -premailer-cellpadding: 0;
+}
+
+.mobile-padding {
+  background-color: $background-color;
+  padding: 15px 0;
+  margin: 0;
+}
+
+table.mobile-padding > tr > td > table {
+  -premailer-width: 640px;
+}
+
+table.card {
+  background-color: #efefef;
+  -premailer-cellpadding: 20;
+}
+
+table.card + table.card {
+  margin-top: 20px;
+}
+
+table.bordered {
+  border-collapse: collapse;
+  border: 1px solid #999999;
+
+  th, td {
+    border: 1px solid #999999;
+    padding: 5px 10px;
+  }
+
+  th {
+    background-color: darken(#efefef, 5);
+  }
+}
