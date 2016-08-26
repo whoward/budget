@@ -20,6 +20,8 @@ module Budget
     end
 
     initializer 'sequel.initialize' do
+      next if ActiveRecord::Base.connection_config[:adapter] == 'nulldb'
+
       DB.connection
 
       load_app_directory 'records'

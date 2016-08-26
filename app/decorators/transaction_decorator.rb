@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'application_decorator'
+
 module Budget
   class TransactionDecorator < ApplicationDecorator
     delegate :id, :cents
