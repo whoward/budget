@@ -30,9 +30,9 @@ module Budget
       TEMPLATE = <<-HTML
         <table class='progress-bar'>
           <tr>
-            <td class='progress <%= severity %>' style="width:<%= progress %>%"></td>
+            <td class='progress <%= severity %>' width="<%= progress %>%"></td>
             <% if progress < 100 %>
-            <td class='progress-remaining' style="width:<%= remaining %>%"></td>
+            <td class='progress-remaining' width="<%= remaining %>%"></td>
             <% end %>
           </tr>
         </table>

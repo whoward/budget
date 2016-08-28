@@ -30,6 +30,8 @@ table.mobile-padding > tr > td > table {
 
 table.card {
   background-color: #efefef;
+  max-width: 100%;
+  min-width: 100%;
   -premailer-cellpadding: 20;
 }
 
@@ -48,5 +50,9 @@ table.bordered {
 
   th {
     background-color: darken(#efefef, 5);
+  }
+
+  td {
+    background-color: white;
   }
 }

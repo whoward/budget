@@ -1,6 +1,8 @@
 
 .progress-bar {
   margin: 5px 0;
+  width: 100%;
+  min-width: 100%;
 
   td:first-child {
     border-top-left-radius: 5px;
@@ -14,7 +16,6 @@
 
   .progress {
     background-color: #33ff00;
-    float: left;
     height: 15px;
     box-shadow: inset 0px 0px 3px 1px #666666;
 
@@ -27,7 +28,6 @@
   .progress-remaining {
     background-color: #cccccc;
     box-shadow: inset 0px 0px 3px 1px #999999;
-    float: left;
     height: 15px;
   }
 }
