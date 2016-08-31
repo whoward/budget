@@ -2,6 +2,11 @@
 
 module Budget
   class ApplicationMailer < ActionMailer::Base
+    layout 'budget/mailer'
+
+    helper 'budget/application'
+    helper 'budget/html_email'
+
     default from: Budget.mail_recipient,
             to: Budget.mail_recipient
 

@@ -44,6 +44,8 @@ require 'budget/transaction_similarity_analyzer'
 require 'budget/transferize_policy'
 require 'budget/time_period'
 
+require 'budget/refinements/statistics'
+
 load_app_directory 'calculators'
 load_app_directory 'casts'
 load_app_directory 'models'

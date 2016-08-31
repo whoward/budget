@@ -16,6 +16,17 @@ module Budget
       @compliance ||= Calculator::BudgetCompliance.new(budget)
     end
 
+    def total_spending
+      @total_spending ||= ExpenseRecord.where(date: budget.period).sum(:cents)
+    end
+
+    def average_recent_income
+      @average_recent_income ||= Budget::Calculator::AverageMonthlyTotals.new(
+        Budget::IncomeRecord.where(date: previous_6_months),
+        trim: 20
+      ).result
+    end
+
     def day_in_month
       date.day
     end
@@ -30,6 +41,14 @@ module Budget
 
     def overbudget?
       compliance.overbudget_total.positive?
+    end
+
+    private
+
+    def previous_6_months
+      last_month = date.last_month
+
+      (last_month - 5.months).at_beginning_of_month..last_month.at_end_of_month
     end
   end
 end

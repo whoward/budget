@@ -1,0 +1,11 @@
+
+= card do
+  %h3 You have some new stuff to review
+
+  %ul
+    - if @txn_count.positive?
+      %li= pluralize(@txn_count, "transaction")
+    - if @acc_count.positive?
+      %li= pluralize(@acc_count, "account")
+
+  %p Visit #{ link_to 'the website', review_url } to review these items.

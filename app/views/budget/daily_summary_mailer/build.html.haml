@@ -1,6 +1,10 @@
 = card do
-  -# TODO: also include unbudgeted spending
   %h3 Your total budgeted spending so far this month is #{page.total_budgeted_spending}
+
+  = page.budgeted_spending_progress_bar
+
+= card do
+  %h3 Your total spending so far this month is #{page.total_spending}, you usually earn #{page.average_recent_income}.
 
   = page.spending_progress_bar
 

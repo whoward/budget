@@ -18,8 +18,20 @@ module Budget
       dollars(compliance.total_budgeted_spending)
     end
 
+    def budgeted_spending_progress_bar
+      HtmlEmail::ProgressBar.new(value: compliance.total_budgeted_spending, total: budget.total)
+    end
+
+    def average_recent_income
+      dollars(object.average_recent_income)
+    end
+
+    def total_spending
+      dollars(object.total_spending)
+    end
+
     def spending_progress_bar
-      Budget::HtmlEmail::ProgressBar.new(value: compliance.total_budgeted_spending, total: budget.total)
+      HtmlEmail::ProgressBar.new(value: object.total_spending, total: object.average_recent_income)
     end
 
     def overbudget_total
@@ -35,7 +47,7 @@ module Budget
     end
 
     def remaining_days_progress_bar
-      Budget::HtmlEmail::ProgressBar.new(value: day_in_month, total: days_in_month)
+      HtmlEmail::ProgressBar.new(value: day_in_month, total: days_in_month)
     end
 
     private

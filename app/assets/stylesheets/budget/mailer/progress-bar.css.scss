@@ -22,7 +22,7 @@
     &.major { background-color: #99ff00; }
     &.critical { background-color: #FFFF00; }
     &.severe { background-color: #ff9900; }
-    &.exceeded { background-color: #FF3300; }
+    &.exceeded { background-color: red; }
   }
 
   .progress-remaining {
