@@ -4,35 +4,39 @@ module Budget
   class MonthEnumerator
     include Enumerable
 
+    attr_reader :start, :final
+
     def self.since_first_transaction
-      date = Transaction.minimum(:date) || Time.zone.now
+      date = TransactionRecord.min(:date) || Time.zone.today
       new(date.year, date.month)
     end
 
     def initialize(start_year, start_month, end_year: nil, end_month: nil)
-      @year = start_year
-      @month = start_month
+      @start = Date.new(start_year, start_month)
 
+      # the final date will be the beginning of the current month unless specified
       @final =
         if end_year && end_month
-          Time.zone.local(end_year, end_month, 1, 0, 0, 0)
+          Date.new(end_year, end_month)
         else
-          Time.zone.now.at_beginning_of_month
+          Time.zone.today.at_beginning_of_month
         end
+
+      # this class is immutable
+      freeze
     end
 
     def each
       return to_enum(:each) unless block_given?
 
+      current = start.dup
+
       loop do
-        start = Time.zone.local(@year, @month, 1, 0, 0, 0)
+        break if current > final
 
-        break if start > @final
+        yield current.year, current.month
 
-        yield @year, @month
-
-        @year = start.next_month.year
-        @month = start.next_month.month
+        current = current.next_month
       end
     end
   end

@@ -1,13 +1,9 @@
-
 # frozen_string_literal: true
+
 module Budget
   module ApplicationHelper
     def review_count
-      @review_count ||= ImportableAccount.not_imported.count + ImportableTransaction.not_imported.count
-    end
-
-    def transactions_count
-      @transactions_count ||= Transaction.count
+      @review_count ||= ImportableAccountRecord.not_imported.count + ImportableTransactionRecord.not_imported.count
     end
 
     def cents_to_dollars(cents)
@@ -40,7 +36,8 @@ module Budget
     end
 
     def grouped_options_for_income_and_expenses(selected = nil)
-      categories = [Category.income, Category.expense].map(&:self_and_descendants).map(&:to_a).flatten
+      categories = [CategoryRecord.income, CategoryRecord.expense].flat_map { |r| [r, *r.descendants] }
+
       grouped_options_for_categories(categories, selected)
     end
 

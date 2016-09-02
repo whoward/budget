@@ -49,15 +49,15 @@ module Budget
     end
 
     def transfer_to?
-      category == Budget::Category.transfer_to
+      category.id == CategoryRecord.transfer_to.id
     end
 
     def transfer_from?
-      category == Budget::Category.transfer_from
+      category.id == CategoryRecord.transfer_from.id
     end
 
     def expense?
-      object.is_a?(Budget::Expense)
+      object.type == 'Budget::Expense'
     end
   end
 end

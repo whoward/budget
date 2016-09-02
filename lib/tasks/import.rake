@@ -14,7 +14,7 @@ namespace :import do
 
   desc 'import from all sources since 1 week prior to the most recent transaction in the system'
   task recent: :environment do
-    max = [Budget::Transaction.maximum(:date), Budget::ImportableTransaction.maximum(:date)].max
+    max = [Budget::TransactionRecord.max(:date), Budget::ImportableTransactionRecord.max(:date)].max
 
     service(since: max.at_beginning_of_day - 1.week).call
   end

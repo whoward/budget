@@ -21,11 +21,11 @@ module Budget
     attr_reader :from, :to
 
     def from_is_expense
-      from.class == Expense || throw(:invalid, :from_isnt_expense)
+      [Expense, ExpenseRecord].include?(from.class) || throw(:invalid, :from_isnt_expense)
     end
 
     def to_is_income
-      to.class == Income || throw(:invalid, :to_isnt_income)
+      [Income, IncomeRecord].include?(to.class) || throw(:invalid, :to_isnt_income)
     end
 
     def amount_is_equal
