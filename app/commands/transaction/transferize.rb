@@ -1,39 +1,41 @@
 # frozen_string_literal: true
 
-module Budget::Command
-  class Transferize
-    def initialize(from, to)
-      @from = from
-      @to = to
-    end
-
-    def call
-      validate!
-
-      DB.transaction do
-        update_from!
-        update_to!
+module Budget
+  module Command
+    class Transferize
+      def initialize(from, to)
+        @from = from
+        @to = to
       end
-    end
 
-    private
+      def call
+        validate!
 
-    attr_reader :from, :to
+        DB.transaction do
+          update_from!
+          update_to!
+        end
+      end
 
-    def validate!
-      TransferizePolicy.new(from, to).validate
-    end
+      private
 
-    def update_from!
-      from.update category_id: CategoryRecord.transfer_from.id,
-                  type: 'Budget::TransferFrom',
-                  transfer_id: to.id
-    end
+      attr_reader :from, :to
 
-    def update_to!
-      to.update category_id: CategoryRecord.transfer_to.id,
-                type: 'Budget::TransferTo',
-                transfer_id: from.id
+      def validate!
+        TransferizePolicy.new(from, to).validate
+      end
+
+      def update_from!
+        from.update category_id: CategoryRecord.transfer_from.id,
+                    type: 'Budget::TransferFrom',
+                    transfer_id: to.id
+      end
+
+      def update_to!
+        to.update category_id: CategoryRecord.transfer_to.id,
+                  type: 'Budget::TransferTo',
+                  transfer_id: from.id
+      end
     end
   end
 end

@@ -9,10 +9,6 @@ def load_app_directory(name)
 end
 
 module Budget
-  %w(Calculator Cast Command Refinements).each do |namespace|
-    const_set namespace, Module.new
-  end
-
   def self.configure
     yield self
   end
