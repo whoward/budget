@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Budget
-  class SplitExpenseRecord < Sequel::Model
+  class SplitExpenseRecord < Sequel::Model(:budget_transactions)
     set_dataset DB[:budget_transactions].where(type: 'Budget::SplitExpenseTransaction')
 
     one_to_many :partitions, class: 'Budget::ExpenseRecord',

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Budget
-  class TransferToRecord < Sequel::Model
+  class TransferToRecord < Sequel::Model(:budget_transactions)
     set_dataset DB[:budget_transactions].where(type: 'Budget::TransferTo')
 
     one_to_one :from, class: 'Budget::TransferFromRecord',

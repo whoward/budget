@@ -19,6 +19,7 @@ module Budget
         db.sql_log_level = :debug
 
         Sequel::Model.db = db
+        Sequel::Model.plugin :auto_validations, not_null: :presence
 
         db
       end

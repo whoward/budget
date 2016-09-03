@@ -1,5 +1,5 @@
-
 # frozen_string_literal: true
+
 module Budget
   class ImportableAccountsController < BaseController
     def show
@@ -8,15 +8,8 @@ module Budget
     end
 
     def update
-      # TODO: missing features
-      # - merge a importable account into an existing account
-      # - reject an account (do not import)
-      # - push off an account for later review
-      if Service::AccountImport.new(account, filtered_params).call.success?
-        redirect_to next_review_url
-      else
-        render 'show'
-      end
+      Command::Account::Import.new(account, filtered_params).call
+      redirect_to next_review_url
     end
 
     private
@@ -26,7 +19,7 @@ module Budget
     end
 
     def account
-      @_account ||= ImportableAccount.find(params[:id])
+      @_account ||= ImportableAccountRecord[params[:id]]
     end
     helper_method :account
   end

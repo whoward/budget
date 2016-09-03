@@ -1,32 +1,34 @@
 # frozen_string_literal: true
 
 namespace :import do
-  def service(options)
-    headless = ENV.fetch('XVFB', 'false') == 'true'
+  def service(klass, options)
+    klass.new(options.merge(logger: logger))
+  end
 
-    Budget::Service::ImportAll.new(headless: headless, options: options)
+  def all(options)
+    service(Budget::Command::ImportService::All, options)
+  end
+
+  def since(options)
+    service(Budget::Command::ImportService::Recent, options)
+  end
+
+  def logger
+    Budget::Logger.console
   end
 
   desc 'import from all sources since the earliest point in time'
-  task all: :environment do
-    service(force_refresh: true).call
-  end
+  task(all: :environment) { all.call }
 
   desc 'import from all sources since 1 week prior to the most recent transaction in the system'
-  task recent: :environment do
-    max = [Budget::TransactionRecord.max(:date), Budget::ImportableTransactionRecord.max(:date)].max
+  task(recent: :environment) { recent.call }
 
-    service(since: max.at_beginning_of_day - 1.week).call
-  end
+  desc 'import from all sources since the passed date'
+  task :since, [:year, :month, :day] => :environment do |_task, args|
+    date = Date.new(args[:year].to_i, args[:month].to_i, args[:day].to_i)
 
-  desc 'import from all sources since the value in the SINCE environment variable'
-  task since: :environment do
-    since = Chronic.parse(ENV.fetch('SINCE'))
+    logger.info "importing from #{date}"
 
-    print "Did you mean #{since.strftime('%b %d %Y')}? <Y/N>"
-
-    exit unless $stdin.readline.strip.casecmp('y').zero?
-
-    service(since: since).call
+    all(since: date).call
   end
 end
