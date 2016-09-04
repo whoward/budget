@@ -1,20 +1,23 @@
 # frozen_string_literal: true
-class CreateBudgetCategories < ActiveRecord::Migration
-  def change
-    create_table :budget_categories do |t|
-      t.integer :parent_id
-      t.string :name, null: false
-      t.integer :lft, null: false
-      t.integer :rgt, null: false
-      t.integer :depth, null: false
-      t.integer :budgeted_cents
 
-      t.timestamps null: false
+Sequel.migration do
+  change do
+    create_table :budget_categories do
+      primary_key :id
 
-      t.index :parent_id
-      t.index :depth
-      t.index :lft
-      t.index :rgt
+      foreign_key :parent_id, :budget_categories, null: false
+
+      String :name, null: false
+
+      integer :budgeted_cents
+
+      boolean :watched, null: false, default: false
+
+      DateTime :created_at, null: false
+
+      DateTime :updated_at, null: false
+
+      index :parent_id
     end
   end
 end

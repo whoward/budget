@@ -1,21 +1,27 @@
 # frozen_string_literal: true
-class CreateBudgetImportableTransactions < ActiveRecord::Migration
-  def change
-    create_table :budget_importable_transactions do |t|
-      t.string :source_id, null: false
-      t.integer :imported_id
-      t.date :date, null: false
-      t.string :description
-      t.string :category
-      t.integer :cents, null: false
-      t.boolean :expense, null: false
-      t.string :account
-      t.string :account_id
-      t.string :notes
 
-      t.timestamps null: false
+Sequel.migration do
+  change do
+    create_table :budget_importable_transactions do
+      primary_key :id
+      String :source_id, null: false
+      foreign_key :imported_id, :budget_transactions
+      date :date, null: false
+      String :description
+      String :category
+      integer :cents, null: false
+      boolean :expense, null: false
+      String :account
+      foreign_key :account_id,
+                  :budget_importable_accounts,
+                  type: String,
+                  null: false,
+                  key: :source_id
+      String :notes
+      DateTime :created_at, null: false
+      DateTime :updated_at, null: false
 
-      t.index :source_id, unique: true
+      index :source_id, unique: true
     end
   end
 end

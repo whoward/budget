@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Budget
   class InstallGenerator < Rails::Generators::Base
     source_root File.join(__dir__, 'templates')

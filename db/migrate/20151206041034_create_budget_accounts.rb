@@ -1,11 +1,13 @@
 # frozen_string_literal: true
-class CreateBudgetAccounts < ActiveRecord::Migration
-  def change
-    create_table :budget_accounts do |t|
-      t.string :name, null: false
-      t.boolean :debt, default: false, null: false
 
-      t.timestamps null: false
+Sequel.migration do
+  change do
+    create_table :budget_accounts do
+      primary_key :id
+      String :name, null: false
+      boolean :debt, null: false, default: false
+      DateTime :created_at, null: false
+      DateTime :updated_at, null: false
     end
   end
 end
