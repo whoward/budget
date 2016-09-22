@@ -21,9 +21,9 @@ module Budget
       super
     end
 
-    def validate
-      super
-      validates_includes ImportServiceRecord.registry.map(&:name), :type
-    end
+    # def validate
+    #   super
+    #   validates_includes ImportServiceRecord.registry.map(&:name), :type
+    # end
   end
 end

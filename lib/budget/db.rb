@@ -18,9 +18,10 @@ module Budget
         db.loggers << Rails.logger
         db.sql_log_level = :debug
 
+        db.extension :pg_array, :pg_json
+
         Sequel::Model.db = db
         Sequel::Model.plugin :auto_validations, not_null: :presence
-
         db
       end
     end

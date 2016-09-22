@@ -3,14 +3,12 @@ require 'singleton'
 
 module Budget
   module Preferable
-    extend ActiveSupport::Concern
-
-    included do
-      has_many :preferences, dependent: :destroy, as: :owner
+    def self.included(base)
+      base.extend(ClassMethods)
     end
 
-    def preference_store
-      @store ||= ActiveRecordStore.new(self)
+    def preference_column
+      :preferences
     end
 
     def defined_preferences
@@ -25,42 +23,16 @@ module Budget
         # cache_key will be nil for new objects, then if we check if there
         # is a pending preference before going to default
         define_method "preferred_#{name}" do
-          preference_store.fetch(name, &default)
+          if values.key?(preference_column)
+            self[preference_column]
+          else
+            default.call
+          end
         end
 
         define_method "preferred_#{name}=" do |value|
           preference_store[name] = value
         end
-      end
-    end
-
-    ActiveRecordStore = Struct.new(:record) do
-      def fetch(preference)
-        existing = existing(preference)
-
-        if existing
-          existing.value
-        else
-          self[preference] = yield
-        end
-      end
-
-      def []=(preference, value)
-        existing = existing(preference)
-
-        if existing.nil?
-          record.preferences.build(key: preference.to_s, value: value)
-        else
-          existing.value = value
-        end
-
-        value
-      end
-
-      private
-
-      def existing(preference)
-        record.preferences.detect { |p| p.key == preference.to_s }
       end
     end
   end
