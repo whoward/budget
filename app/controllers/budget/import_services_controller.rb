@@ -1,47 +1,38 @@
 # frozen_string_literal: true
+
 module Budget
   class ImportServicesController < BaseController
-    before_action :set_import_service, only: [:show, :edit, :update, :destroy]
-
     def index
-      @import_services = ImportService.all
+      @import_services = ImportServiceRecord.to_a
     end
 
     def new
-      @import_service = ImportService.new
+      @import_service = ImportServiceRecord.new
     end
 
     def edit
+      @import_service = Cast::ImportServiceRecord(params[:id])
     end
 
     def create
-      @import_service = ImportService.new(import_service_params)
-
-      if @import_service.save
-        redirect_to action: :index, notice: 'import service was successfully created.'
-      else
-        render action: 'new'
-      end
+      Command::ImportService::Create.new(import_service_params).call
+      flash[:notice] = 'import service was successfully created.'
+      redirect_to :index
     end
 
     def update
-      if @import_service.update(import_service_params)
-        redirect_to action: :index, notice: 'import service was successfully updated.'
-      else
-        render action: 'edit'
-      end
+      Command::ImportService::Update.new(params[:id], import_service_params).call
+      flash[:notice] = 'import service was successfully updated.'
+      redirect_to :index
     end
 
     def destroy
-      @import_service.destroy
-      redirect_to action: :index, notice: 'import service deleted'
+      Command::ImportService::Delete.new(params[:id]).call
+      flash[:notice] = 'import service deleted'
+      redirect_to :index
     end
 
     private
-
-    def set_import_service
-      @import_service = ImportService.find(params[:id])
-    end
 
     def import_service_params
       params.require(:import_service).permit(:name, :type, :active, *per_type_params)

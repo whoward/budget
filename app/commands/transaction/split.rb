@@ -6,8 +6,8 @@ module Budget
       class Split
         Invalid = Class.new(ArgumentError)
 
-        def initialize(transaction:, partitions:)
-          @transaction = transaction
+        def initialize(transaction, partitions)
+          @transaction = Cast::TransactionRecord(transaction)
           @partitions = partitions.map { |params| build_partition(params) }
         end
 

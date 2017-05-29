@@ -2,49 +2,38 @@
 
 module Budget
   class AccountsController < BaseController
-    before_action :set_account, only: %w(edit update destroy)
-
     def index
       render :index, locals: {
-        collection: AccountDecorator.decorate_collection(Account.all)
+        collection: AccountDecorator.decorate_collection(Account.to_a)
       }
     end
 
     def new
-      @account = Account.new
+      @account = AccountRecord.new
     end
 
     def edit
+      @account = Cast::AccountRecord(params[:id])
     end
 
     def create
-      @account = Account.new(account_params)
-
-      if @account.save
-        redirect_to action: :index, notice: 'Account was successfully created.'
-      else
-        render action: 'new'
-      end
+      Command::Account::Create.new(account_params).call
+      flash[:notice] = 'Account was successfully created.'
+      redirect_to :index
     end
 
     def update
-      if @account.update(account_params)
-        redirect_to action: :index, notice: 'Account was successfully updated.'
-      else
-        render action: 'edit'
-      end
+      Command::Account::Update.new(params[:id], account_params).call
+      flash[:notice] = 'Account was successfully updated.'
+      redirect_to :index
     end
 
     def destroy
-      @account.destroy
+      Command::Account::Delete.new(params[:id]).call
       redirect_to accounts_url
     end
 
     private
-
-    def set_account
-      @account = Account.find(params[:id])
-    end
 
     def account_params
       params.require(:account).permit(:name, :debt)

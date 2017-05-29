@@ -4,8 +4,8 @@ module Budget
   module Command
     class Transferize
       def initialize(from, to)
-        @from = from
-        @to = to
+        @from = Cast::TransactionRecord(from)
+        @to = Cast::TransactionRecord(to)
       end
 
       def call

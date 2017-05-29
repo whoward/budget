@@ -1,0 +1,21 @@
+app/controllers
+app/models
+app/reports
+app/views
+lib/budget/transaction_factory/duplicate_transaction_strategy
+lib/budget/transaction_factory/new_transaction_strategy
+lib/budget/factories
+lib/budget/preferable
+lib/budget/transaction_similarity_analyzer
+spec/
+
+plan of attack
+--------------
+
+3) extract more commands from controllers
+4) convert reports to use decorators / calculators / view models
+5) convert specs
+6) convert controllers / views
+7) convert importers
+8) use sequel-rails instead of custom SQL
+9) export only data from prod and reimport locally  (to test for prod)

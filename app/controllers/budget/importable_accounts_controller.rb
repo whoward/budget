@@ -19,7 +19,7 @@ module Budget
     end
 
     def account
-      @_account ||= ImportableAccountRecord[params[:id]]
+      @_account ||= Cast::ImportableAccountRecord(params[:id])
     end
     helper_method :account
   end

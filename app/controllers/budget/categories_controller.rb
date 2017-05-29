@@ -1,54 +1,44 @@
 # frozen_string_literal: true
+
 module Budget
   class CategoriesController < BaseController
-    before_action :set_category, only: %w(edit update destroy)
-
     def index
       render :index, locals: {
         income: Budget::CategoryDecorator.decorate_collection(
-          Category.income.descendants.sort_by(&:name)
+          CategoryRecord.income.descendants.order(:name)
         ),
         expenses: Budget::CategoryDecorator.decorate_collection(
-          Category.expense.descendants.sort_by(&:name)
+          CategoryRecord.expense.descendants.order(:name)
         )
       }
     end
 
     def new
-      @category = Category.new
+      @category = CategoryRecord.new
     end
 
     def edit
+      @category = Cast::CategoryRecord(params[:id])
     end
 
     def create
-      @category = Category.new(category_params)
-
-      if @category.save
-        redirect_to action: :index, notice: 'Category was successfully created.'
-      else
-        render action: 'new'
-      end
+      Command::Category::Create.new(category_params).call
+      flash[:notice] = 'Category was successfully created.'
+      redirect_to :index
     end
 
     def update
-      if @category.update(category_params)
-        redirect_to action: :index, notice: 'Category was successfully updated.'
-      else
-        render action: 'edit'
-      end
+      Command::Category::Update.new(params[:id], category_params).call
+      flash[:notice] = 'Category was successfully updated.'
+      redirect_to :index
     end
 
     def destroy
-      @category.destroy
-      redirect_to action: :index
+      Command::Category::Destroy.new(params[:id]).call
+      redirect_to :index
     end
 
     private
-
-    def set_category
-      @category = Category.find(params[:id])
-    end
 
     def category_params
       params.require(:category).permit(:parent_id, :name, :budgeted_cents, :watched)

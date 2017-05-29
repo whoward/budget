@@ -8,16 +8,16 @@ module Budget
     end
 
     def edit
-      @transaction = Transaction.find(params[:id])
+      @transaction = Cast::TransactionRecord(params[:id])
     end
 
     def edit_split
-      @transaction = Transaction.find(params[:id])
+      @transaction = Cast::TransactionRecord(params[:id])
       render 'split'
     end
 
     def update
-      @transaction = Transaction.find(params[:id])
+      @transaction = Cast::TransactionRecord(params[:id])
 
       if @transaction.update(filtered_params)
         redirect_to params[:return_to].presence || transactions_path, notice: 'Transaction updated'
@@ -27,38 +27,17 @@ module Budget
     end
 
     def transferize
-      from = Transaction.find(params[:from_id])
-      to = Transaction.find(params[:to_id])
-
-      if (reason = TransferizePolicy.new(from, to).validate) == true
-        Service::Transferize.new(from, to).call
-        render json: {}, status: :ok
-      else
-        render json: { reason: reason }, status: :bad_request
-      end
+      Command::Transaction::Transferize.new(params[:from_id], params[:to_id]).call
+      render json: {}, status: :ok
+    rescue ArgumentError => e
+      render json: { reason: e.message }, status: :bad_request
     end
 
     def split
-      txn = Transaction.find(params[:id])
-
-      parts = params.require(:partitions).map do |part|
-        attrs = part.permit(:category_id, :cents, :notes)
-        inherited = txn.attributes.slice('account_id', 'date', 'description')
-
-        attrs[:cents] = Cast::Cents(attrs[:cents])
-
-        klass = txn.is_a?(Expense) ? Expense : Income
-
-        klass.new(attrs.merge(inherited))
-      end
-
-      result = Budget::Service::SplitTransactionSave.new(transaction: txn, partitions: parts).call
-
-      if result.success?
-        render json: { success: true }
-      else
-        render json: { success: false, reason: result.reason }, status: :bad_request
-      end
+      Command::Transaction::Split.new(params[:id], params.require(:partitions)).call
+      render json: { success: true }
+    rescue ArgumentError => e
+      render json: { success: false, reason: e.message }, status: :bad_request
     end
 
     private
